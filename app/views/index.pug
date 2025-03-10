@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+  head
+    link(type="text/css" href='/main.css')
+    link(rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/alertify.min.css")
+    //- link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css")
+    link(href='/img/favicons/favicon.ico' rel='icon', sizes='16x16' type='image/png')
+    link(href='//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' rel='stylesheet')
+
+    each key in Object.keys(manifest)
+      - if (manifest[key].css)
+        link(rel="stylesheet" href=`${manifest[key].css}`)
+
+    title Station Tool
+
+  body
+    div(id="root")
+    
+include ./partials/scripts

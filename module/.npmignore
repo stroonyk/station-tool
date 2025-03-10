@@ -1,0 +1,14 @@
+**/.DS_Store
+/src
+/node_modules
+/jest.config.js
+/webpack.config.js
+/tsconfig.json
+/.eslintignore
+/.eslintrc
+/.prettierrc.js
+/tsconfig.json
+/.gitignore
+/.vscode
+.nvmrc
+*.tgz

@@ -1,0 +1,23 @@
+@import './partials/fontawesome';
+@import './partials/core';
+@import '@fortawesome/fontawesome-svg-core/styles.css';
+@import '@rradar/station-tool/dist/main.css';
+
+@import 'variables', 'mixins', 'base';
+
+@import 'components/areaMenu';
+@import 'components/buttons';
+@import 'components/dashboardCards';
+@import 'components/dropzoneContainer';
+@import 'components/loading';
+@import 'components/monitor';
+@import 'components/navigationContainer';
+@import 'components/reportContainer';
+// Components/panels
+@import 'components/panels/chartPanel';
+@import 'components/panels/sidenavPanel';
+@import 'components/panels/tasksPanel';
+// Components/report
+@import 'components/report/reportQuestion';
+@import 'components/report/reportSidePanel';
+@import 'components/customDropdown';

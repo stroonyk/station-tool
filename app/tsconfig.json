@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "target": "es2015",
+    "declaration": true,
+    "module": "NodeNext",
+    "lib": [
+      "esnext",
+      "es6",
+      "dom",
+      "es2015.promise",
+      "es5",
+      "es2015",
+      "dom.iterable"
+    ],
+    "jsx": "react",
+    "sourceMap": true,
+    "moduleResolution": "NodeNext",
+    "strict": false,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": false,
+    "esModuleInterop": true,
+    "types": ["react", "node"],
+    "outDir": "./dist/",
+    "typeRoots": ["/node_modules/**", "node_modules/@types"]
+  },
+  "exclude": ["node_modules", "__tests__"],
+  "include": ["./src/**/*"],
+  "icons": [
+    {
+      "src": "img/favicons/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

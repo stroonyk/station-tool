@@ -1,0 +1,79 @@
+@keyframes border-dance {
+  0% {
+    background-position-x: 0, 100%, 0, 100%;
+    background-position-y: 0, 100%, 100%, 0%;
+  }
+  100% {
+    background-position-x: 100%, 0, 0px, 100%;
+    background-position-y: 0, 100%, 0px, 100%;
+  }
+}
+@mixin zero-padding-margin {
+  margin: 0;
+  padding: 0;
+}
+// @mixin panel-height {
+//   height: calc(100vh - 126px);
+// }
+// @mixin report-height {
+//   height: calc(100vh - 195px);
+// }
+
+@mixin tasks-height {
+  height: calc(100vh - 242px);
+}
+@mixin title-fontweight() {
+  font-weight: 500;
+}
+@mixin taskpanel-minwidth() {
+  min-width: 600px;
+}
+@mixin taskpanel-widthpercent() {
+  width: 90%;
+}
+@mixin sidebar-flex() {
+  flex: 0 0 315px;
+}
+@mixin word-wrap() {
+  // overflow-wrap: break-word;
+  // word-wrap: break-word;
+  // -ms-word-break: break-all;
+  // word-break: break-all;
+  // word-break: break-word;
+  // -ms-hyphens: auto;
+  // -moz-hyphens: auto;
+  // -webkit-hyphens: auto;
+  // hyphens: auto;
+}
+
+@mixin notification($bg-color: $rradar-red, $text-color: $rradar-white) {
+  border-radius: 50%;
+  background-color: $bg-color;
+  color: $text-color;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+}
+@mixin button($bg-color, $text-color) {
+  color: $text-color !important;
+  background-color: $bg-color !important;
+  display: inline-block;
+  height: 10px;
+  line-height: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  text-decoration: none;
+  letter-spacing: -0.05em;
+  text-align: center;
+  border-radius: 5px;
+  position: relative !important;
+}
+@mixin button-hover($bg-color, $text-color) {
+  color: $text-color !important;
+  background-color: $bg-color !important;
+  cursor: pointer;
+}

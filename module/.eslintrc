@@ -1,0 +1,6 @@
+{
+  "react/jsx-no-bind": "off",
+  "extends": [
+    "@rradar/eslint-config"
+  ]
+}

@@ -1,0 +1,71 @@
+
+
+@mixin loader(
+  $loader-type: ring,
+  $loader-size: 8rem,
+  $loader-thickness: 1.6rem
+) {
+  @if $loader-type == ring {
+    width: $loader-size;
+    height: $loader-size;
+    border: $loader-thickness solid #f2f2f2;
+    border-top: $loader-thickness solid $colour-brand-primary;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotate 1s linear infinite;
+  }
+}
+
+@mixin is-loading {
+  //position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  &.dark-loading {
+    &:before {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &.light-loading {
+    &:before {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  &.grey-loading {
+    &:before {
+      background-color: rgba(42, 42, 42, 0.8);
+    }
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+  }
+
+  // min-height: 16rem;
+
+  &:after {
+    @include loader(ring, 3.2rem, 0.2rem);
+    content: '';
+    display: block;
+    position: absolute;
+    /* Vertical centering causes spinner to move if container changes height during content load */
+    /* Removing vertical centering affects look on menus such as catergory menu */
+    top: calc(50% - 1.6rem);
+    left: calc(50% - 1.6rem);
+    z-index: 3;
+  }
+}
+
+.is-loading {
+  /* Defines helper class from mixin */
+  @include is-loading;
+  //height:40px;
+  position: initial !important;
+}
+  

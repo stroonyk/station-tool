@@ -1,0 +1,39 @@
+.chart-panel {
+  flex: 0 0 381px;
+  order: 2;
+  // background-color: $rradar-pearl;
+
+  overflow: hidden;
+
+  .chart-and-disclaimer-wrapper {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .risk-chart {
+    margin: auto auto;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 30px;
+  }
+
+  .report-button-div {
+    display: flex;
+    justify-content: center;
+  }
+
+  .show-report,
+  .show-questions {
+    display: flex;
+    justify-content: center;
+  }
+  @media (max-width: 1199px) {
+    height: 500px;
+    width: 400px;
+    justify-content: center;
+    margin: auto;
+    .risk-chart {
+      margin-top: 10px;
+    }
+  }
+}

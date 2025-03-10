@@ -1,0 +1,19 @@
+.report-question {
+  @include title-fontweight();
+
+  span {
+    float: right;
+    color: green;
+    &.No {
+      color: $rradar-red;
+    }
+  }
+
+  .report-div-question-container {
+    display: flex;
+
+    p {
+      flex-grow: 1;
+    }
+  }
+}

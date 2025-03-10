@@ -1,0 +1,9 @@
+include:
+  - project: 'devops/infrastructure'
+    ref: master
+    file: '/ci-templates/docker-build-and-kubernetes-deploy.yml'
+
+variables:
+  DOCKER_REPO: rradar/station-ui
+  INFRASTRUCTURE_DIRECTORY: ui/risk
+  CACHEBUST: 1

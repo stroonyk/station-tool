@@ -1,0 +1,36 @@
+.report-container {
+  background-color: $rradar-pearl;
+  @include taskpanel-minwidth();
+  order: 1;
+  flex: 1;
+  overflow-y: hidden;
+  > div:nth-child(1) {
+    max-width: 1024px;
+    margin: auto;
+    height: 68px;
+    line-height: 68px;
+  }
+
+  > div > h2 {
+    text-align: center;
+    @include title-fontweight();
+  }
+  ul {
+    margin: 0px 10px 0px 48px !important;
+  }
+  li {
+    padding: 0px 10px 10px 10px !important;
+  }
+  em {
+    font-weight: 300;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 300;
+    margin-bottom: 15px;
+  }
+}

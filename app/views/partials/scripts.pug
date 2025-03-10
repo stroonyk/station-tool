@@ -1,0 +1,17 @@
+script(nonce=`${wpsNonce}`).
+  window.__PUBLIC_STATE__ = {
+    title: 'Station Tool',
+    user: !{JSON.stringify(user)},
+    page: {
+      id: !{Number(id)} || null,
+      parent: !{Number(parent)} || null
+    },
+    api: {
+      clientId: "!{client_id}",
+      endpoint: "!{api_endpoint}",
+      redirect_url_uid: "!{redirect_url_uid}",
+    },
+  }
+
+script(nonce=`${indexJsNonce}` src=`${manifest['index']['js']}`)
+script(nonce=`${vendorJsNonce}` src=`${manifest['vendor']['js']}`)

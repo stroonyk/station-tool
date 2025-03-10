@@ -1,0 +1,49 @@
+// {
+//   "extends": "../tsconfig.json",
+//   "compilerOptions": {
+//     "outDir": "./dist",
+//     "allowJs" : true
+//   },
+//   "files": ["src/index.ts"]
+// }
+// {
+// "compilerOptions": {
+//   "allowSyntheticDefaultImports": true,
+//   "noImplicitAny": true,
+//   "noEmit": false,
+//   "noUnusedLocals": true,
+//   "declaration": false,
+//   "module": "ES2022",
+//   "target": "ES2022",
+//   "jsx": "react-jsx",
+//   "allowJs": true,
+//   "moduleResolution": "Bundler",
+//   "lib": ["esnext", "es6", "dom", "es2015.promise", "es5", "es2015", "dom.iterable"],
+//   "emitDecoratorMetadata": true,
+//   "experimentalDecorators": true,
+//   "resolveJsonModule": true,
+//   "downlevelIteration": true,
+//   "typeRoots": ["node_modules/@types"]
+// },
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "declaration": false,
+    "module": "ES2022",
+    "target": "ES2022",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
+    "typeRoots": ["node_modules/@types"],
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules", "__tests__"]
+}

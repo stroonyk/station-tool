@@ -1,0 +1,36 @@
+.show-dashboard button {
+  @include button(rgba(201, 0, 0, 0.1), $rradar-red);
+
+  &:hover {
+    @include button-hover($rradar-red, white);
+  }
+}
+
+.dashboard-button-wrapper {
+  display: flex;
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  margin-left: 1vw;
+  justify-content: center;
+}
+
+.dashboard-button {
+  @media screen and (max-width: 1475px) {
+    padding: 10px 10px; /* Adjust padding as needed */
+    font-size: 17px; /* Adjust font size as needed */
+  }
+  @media screen and (max-width: 800px) {
+    padding: 10px 10px; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+  }
+}
+
+button.no:hover,
+button.na:hover,
+.task_help a:hover,
+.ajs-button.ajs-ok:hover,
+button.no.selected,
+button.na.selected {
+  @include button-hover($rradar-deep-purple, $rradar-white);
+}

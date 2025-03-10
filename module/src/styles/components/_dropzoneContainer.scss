@@ -1,0 +1,27 @@
+.dropzone--container {
+    display: flex;
+    border: 3px dashed #606060;
+    border-radius: 5px;
+    padding: 3rem 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-direction: column;
+  
+    &-message {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
+  
+      &:hover {
+        cursor: pointer;
+      }
+  
+      i {
+        height: 50px;
+        margin-top: 0.5rem;
+        font-size: 3rem;
+      }
+    }
+  }

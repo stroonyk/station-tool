@@ -1,0 +1,345 @@
+.tasks-panel {
+  // background-color: $rradar-pearl;
+  // @include taskpanel-minwidth();
+  order: 1;
+  flex: 1;
+
+  h2 {
+    @include title-fontweight();
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-top: 15px;
+  }
+  .banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: auto;
+    margin-right: auto;
+
+    .banner-header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: baseline;
+    }
+    .banner-components {
+      align-content: center;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 15px 20px 10px 20px;
+
+      h2 {
+        font-weight: 300 !important;
+        padding: 0 !important;
+      }
+
+      @media (max-width: 1199px) {
+        padding: 15px 0px 10px 0px;
+      }
+    }
+    h2 {
+      padding-left: 10px;
+    }
+  }
+
+  .horizontal-tabs {
+    ul {
+      border-bottom: none;
+    }
+    ul a:nth-child(-n + 4) {
+      border-bottom: 3px solid #9e1733;
+    }
+  }
+
+  .tasks-container-wrapper {
+    @include scrollbar();
+    height: 66vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+
+    .tasks-container {
+      // Fills the content
+      flex-grow: 1;
+      ul {
+        top: 150px;
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        justify-content: flex-end;
+      }
+
+      li {
+        border: 1px solid $colour-border-light;
+        margin: 0 10px 10px 10px;
+        border-radius: 0 !important;
+        background-color: $rradar-white;
+        border: 0 !important;
+        padding: 2em;
+      }
+      .risk-upload {
+        .listings-table--Name {
+          max-width: 450px;
+        }
+        .listings-table--Actions {
+          width: 100px;
+        }
+        .risk-upload__docs table {
+          width: 100%;
+          text-align: left !important;
+        }
+        .dropzone--container {
+          height: 99px;
+          padding: 0 !important;
+          margin-bottom: 0 !important;
+
+          &.uploading {
+            border: 0px !important;
+            background: linear-gradient(90deg, black 50%, transparent 50%),
+              linear-gradient(90deg, black 50%, transparent 50%), linear-gradient(0deg, black 50%, transparent 50%),
+              linear-gradient(0deg, black 50%, transparent 50%);
+            background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+            background-size: 15px 3px, 15px 3px, 3px 15px, 3px 15px;
+            padding: 11px !important;
+            animation: border-dance 4s infinite linear;
+          }
+        }
+        &__docs {
+          font-size: 0.9rem;
+          @include breakpoint(mobileonly) {
+            font-size: 11px;
+          }
+          table {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+          }
+        }
+        button {
+          margin: 0;
+          margin-bottom: 10px;
+          position: relative !important;
+        }
+        .upload-count {
+          @include notification;
+          top: -8px;
+          left: 100px;
+        }
+        .nav-wrapper {
+          display: none;
+        }
+        &__file {
+          .dropzone--container {
+            padding: 0.5rem;
+            &-message:focus {
+              outline: none;
+            }
+          }
+        }
+        .grey-button {
+          color: #fff;
+          background-color: #5d5d5d;
+          border-width: 0;
+
+          &:hover {
+            cursor: pointer;
+            background-color: darken(#5d5d5d, 10%);
+          }
+        }
+
+        .button--small {
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+          margin: 2px;
+        }
+
+        .filetype {
+          position: relative;
+          font-size: 2rem;
+
+          &--pdf {
+            color: #b30807;
+          }
+
+          &--doc,
+          &--docx {
+            color: #2996cc;
+          }
+
+          &--xlsx,
+          &--xls {
+            color: #3a9335;
+          }
+
+          &--ppt,
+          &--pptx {
+            color: #f2702f;
+          }
+
+          &--jpg,
+          &--jpeg,
+          &--png {
+            color: #2eb8c4;
+          }
+        }
+      }
+
+      .duplicated-questions {
+        margin-top: 10px;
+        display: flex;
+        @media (max-width: 1199px) {
+          display: inline-block;
+        }
+      }
+      .duplicated-questions div:nth-child(1) {
+        color: $rradar-red;
+        font-weight: bold;
+      }
+      .task-help {
+        font-size: 15px;
+        background-color: $rradar-white !important;
+        max-width: none !important;
+        border-radius: 0 0 6px 6px;
+
+        p {
+          @include word-wrap();
+        }
+
+        .expand-help-text {
+          display: inline;
+          color: $rradar-red;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      .task-critical {
+        padding: 16px;
+        font-size: 19px;
+        max-width: none !important;
+        background-color: $rradar-red;
+        color: $rradar-white;
+        margin-top: 10px;
+      }
+
+      .question-and-button-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        .left-side {
+          display: flex;
+          flex-direction: column;
+          margin-right: 50px;
+        }
+
+        .right-side {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .external-links-and-upload-container {
+          margin-top: 1rem; /* Optional: for spacing between the sections */
+        }
+
+        .form-check label,
+        .form-radio label {
+          min-width: 2em;
+          position: relative;
+        }
+
+        h3 {
+          font-size: 22px;
+          @include title-fontweight();
+          flex-grow: 1;
+          line-height: 1.7rem;
+        }
+        h4 {
+          font-weight: 400;
+        }
+      }
+      .next-area {
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+      }
+      .go-to-button {
+        margin-left: 10px;
+      }
+      .task-help-divider {
+        margin: 10px;
+      }
+      .external-links-and-upload-container {
+        min-height: 45px;
+        padding-top: 20px;
+      }
+      .external-links {
+        a {
+          @include button(#f5e7ea, $brand-red-mid);
+
+          padding: 18px 20px;
+          border: none;
+          cursor: pointer;
+          display: inline-block;
+          margin-bottom: 10px;
+          margin-right: 10px;
+          font-weight: 600;
+          font-size: 18px;
+          &:hover {
+            @include button-hover($brand-red-mid, $rradar-white);
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .filter-options {
+    display: flex;
+    gap: 10px; /* Adds some space between the two Select components */
+    align-items: center; /* Align items vertically in the center */
+  }
+
+  @media screen and (min-width: 1200px) {
+    .select-search-container {
+      margin-left: 20px;
+    }
+  }
+
+  @media screen and (max-width: 1199px) {
+    .questionnaire-filter {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .questionnaire_disclaimer {
+    margin: 0 0 1em 0;
+  }
+
+  .questionnaire-disclaimer-link {
+    display: block;
+    // top: 175px;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+  }
+
+  // .tasks-container-wrapper::-webkit-scrollbar {
+  //   width: 12px; /* width of the entire scrollbar */
+  // }
+
+  // .tasks-container-wrapper::-webkit-scrollbar-track {
+  //   background: #fff; /* color of the tracking area */
+  // }
+  // .tasks-container-wrapper::-webkit-scrollbar-thumb {
+  //   background-color: pink; /* Set the color of the scrollbar thumb */
+  //   border-radius: 6px; /* Set the border radius of the scrollbar thumb */
+  // }
+}

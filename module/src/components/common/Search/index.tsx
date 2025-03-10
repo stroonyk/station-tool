@@ -108,7 +108,7 @@ const Search: FC<ISearchProps> = ({
   };
 
   const handleResultsClick = (path?: string) => {
-    debugger;
+    // debugger;
     if (path) {
       navigate(path);
     }

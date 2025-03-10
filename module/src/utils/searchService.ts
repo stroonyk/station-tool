@@ -21,9 +21,9 @@ export interface IResultsList {
 
 export const searchFunction = async (
   searchTerm: string,
-  req?: Request,
+  // req?: Request,
   filters?: { article?: boolean; sequence?: boolean; article_template?: boolean },
-): Promise<{ id: string; title: string; path: string }[]> => {
+): Promise<{ id: string; title: string; path: string; excerpt: string; updated_at: string }[]> => {
   // Determine types to include based on filters
   const types = [];
   if (filters?.article) types.push('article');
@@ -33,12 +33,12 @@ export const searchFunction = async (
   const searchParams = {
     article_type: 'article',
     boost_country: 1,
-    included_fields: ['id', 'title'],
+    included_fields: ['id', 'title', 'description', 'updated_at', 'excerpt', 'brief', 'file_type', 'search_type'],
     no_track: false,
     size: 1000,
     term: searchTerm,
     type_filters: { article: { state: 'published' } },
-    types, // Use the dynamically created types array
+    types: types, // Use the dynamically created types array
   };
 
   let response: ISearchResponse;
@@ -46,12 +46,14 @@ export const searchFunction = async (
   try {
     // response = await getStation(req).search().post(searchParams);
     response = await getStation().search().post(searchParams);
-
+    debugger;
     // Transform the response into the required format
     const formattedResults = response.rows.map((item: any) => ({
       id: item.id,
       title: item.source.title,
       path: item.path || `/library/articles/${item.id}`, // Default path if 'path' is unavailable
+      excerpt: item.source.excerpt,
+      updated_at: item.source.updated_at,
     }));
 
     return formattedResults;

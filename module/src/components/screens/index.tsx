@@ -6,5 +6,6 @@ import Templates from './Templates';
 import Sectors from './Sectors';
 import Tags from './Tags';
 import Browse from './Browse';
+import Search from './Search';
 
-export { Home, Library, Category, Guide, Templates, Sectors, Tags, Browse };
+export { Home, Library, Category, Guide, Templates, Sectors, Tags, Browse, Search };

@@ -49,7 +49,7 @@ const searchFunction = async (searchTerm: string): Promise<{ id: string; title: 
 const MainContentLayout: FC<IMainContentLayout> = ({ children, background = 'white' }) => {
   return (
     <div className="main-content-layout">
-      <Search searchFunction={searchFunction} />
+      <Search searchUrl="/station/search?term=" searchFunction={searchFunction} />
       <Filters />
 
       <Outlet />

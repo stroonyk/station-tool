@@ -4,7 +4,7 @@ import './icons';
 import { IStationProps } from './types';
 import StationProvider from './store/StationProvider';
 import { Routes, Route, BrowserRouter, Link } from 'react-router-dom';
-import { Home, Library, Category, Guide, Templates, Sectors, Tags, Browse } from './components/screens';
+import { Home, Library, Category, Guide, Templates, Sectors, Tags, Browse, Search } from './components/screens';
 import AppConfig from './helpers/AppConfig';
 import { IPublicState } from '.';
 import { MobileMenu, SiteFooter, SiteHeader, SiteLoader } from '@rradar/core';
@@ -34,6 +34,7 @@ const AppInner = ({ refresh }) => {
           <Route path="/station/sectors/:id" element={<Sectors refresh={refresh} />} />
           <Route path="/station/tags/:id" element={<Tags refresh={refresh} />} />
           <Route path="/station/browse" element={<Browse refresh={refresh} />} />
+          <Route path="/station/search" element={<Search refresh={refresh} />} />
         </Route>
       </Routes>
     </BrowserRouter>

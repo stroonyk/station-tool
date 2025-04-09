@@ -1,16 +1,22 @@
-import StationReader from '@rradar/station-tool';
+import StationTool from '@rradar/station-tool';
 import getStation from '../../utils/getStation';
 import getPageId from '../../utils/getPageId';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { IPublicState } from '../types';
+import { useAppContext } from '../store/app-context';
 
 const Station = () => {
+  const { appstate } = useAppContext();
+  const navigatedHomeHandler = () => {};
   return (
     <>
-      <StationReader
+      <StationTool
         config={{
+          user: appstate.user,
           pageid: getPageId(),
           station: getStation(),
+          navigatedHome: navigatedHomeHandler,
+          hybrid_monoserver: false,
         }}
         logo={<a href="/">{/* <Logo /> */}</a>}
       />

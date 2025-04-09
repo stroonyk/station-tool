@@ -38,7 +38,7 @@
     "@rradar/fontawesome": "^1.0.1",
     "@rradar/risk-tool": "file:../../risk-tool/module",
     "@rradar/station-tool": "file:../module",
-    "@rradar/station-sdk": "^2.1.0",
+    "@rradar/station-sdk": "file:../../station-sdk",
     "@rspack/core": "^0.6.5",
     "@sentry/browser": "^8.12.0",
     "@sentry/node": "^6.5.1",

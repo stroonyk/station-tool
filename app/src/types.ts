@@ -36,4 +36,5 @@ export interface IPublicState {
     dsn: string | null;
     environment: string;
   };
+  hybrid_monoserver: boolean;
 }

@@ -9,9 +9,8 @@ import { getSessionToken } from '@rradar/utilities';
 import { init, replayIntegration, getCurrentScope } from '@sentry/browser';
 // import Logo from '../img/risk_logo_black.svg';
 import getAccounts from '../utils/getAccounts';
-// import { Routes, Route, BrowserRouter, Link } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, Link } from 'react-router-dom';
 import Station from './components/Station';
-import AppProvider from './store/AppProvider';
 const Cookies = require('js-cookie');
 
 // const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -81,41 +80,43 @@ const footerColumns = [
 const App = () => {
   return (
     <>
-      <SiteHeader
-        profileItemProps={{
-          companyName: user.company_name,
-          // isCompanySwitchable: user.company.can_switch,
-          switchCompany: () => {
-            window.location.href = `${switchUrl}&redirect_url_uid=${api.redirect_url_uid}&state=${window.location.href}`;
-          },
-          fullName: `${user.user_first_name} ${user.user_last_name}`,
-          logout: signOut,
-          avatarUrl: user.me && user.me.avatar_url,
-          gravatar: {
-            default: 'identicon',
-            email: user.user_email,
-            size: 30,
-          },
-        }}
-        drawerOpen={false}
-        toggleDrawer={() => false}
-        gutterLevel="restricted"
-        // customLogo={props.logo}
-        customLogoWidth="200"
-        customLogoHeight="45"
-      />
-      <AppProvider appstate={state}>
-        <Station />
-      </AppProvider>
-
-      <SiteFooter
-        footerColumns={footerColumns}
-        gutterLevel="restricted"
-        termsAndConditionsFunction={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-      />
+      <Station state={state}/>
     </>
   );
 };
-reactRoot.render(<App />);
+reactRoot.render(
+  <>
+    <SiteHeader
+      profileItemProps={{
+        companyName: user.company_name,
+        // isCompanySwitchable: user.company.can_switch,
+        switchCompany: () => {
+          window.location.href = `${switchUrl}&redirect_url_uid=${api.redirect_url_uid}&state=${window.location.href}`;
+        },
+        fullName: `${user.user_first_name} ${user.user_last_name}`,
+        logout: signOut,
+        avatarUrl: user.me && user.me.avatar_url,
+        gravatar: {
+          default: 'identicon',
+          email: user.user_email,
+          size: 30,
+        },
+      }}
+      drawerOpen={false}
+      toggleDrawer={() => false}
+      gutterLevel="restricted"
+      // customLogo={props.logo}
+      customLogoWidth="200"
+      customLogoHeight="45"
+    />
+    <App />
+
+    <SiteFooter
+      footerColumns={footerColumns}
+      gutterLevel="restricted"
+      termsAndConditionsFunction={function (): void {
+        throw new Error('Function not implemented.');
+      }}
+    />
+  </>
+);

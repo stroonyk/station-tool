@@ -83,4 +83,5 @@ export interface IPublicState {
   sentry: { enabled: boolean; dsn: string };
   callsUrl: string;
   stationTitle: string;
+  hybrid_monoserver: boolean;
 }

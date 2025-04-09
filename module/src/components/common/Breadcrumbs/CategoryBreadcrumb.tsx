@@ -8,18 +8,18 @@ import { getTitleById } from '../../../helpers/helpers';
 // }
 
 const CategoryBreadcrumb: React.FC = () => {
-  const stationCtx = useStationContext();
+  const { selectedCategory, savedCategories, basePath } = useStationContext();
   const [name, setName] = useState('');
 
   useEffect(() => {
-    setName(getTitleById(stationCtx.savedCategories, stationCtx.selectedCategory));
-  }, [stationCtx.selectedCategory, stationCtx.savedCategories]);
+    setName(getTitleById(savedCategories, selectedCategory));
+  }, [selectedCategory, savedCategories]);
   return (
     <>
-      {stationCtx.selectedCategory !== null && stationCtx.selectedCategory > -1 && (
+      {selectedCategory !== null && selectedCategory > -1 && (
         <div>
           {/* <span className="context-span">Category</span> */}
-          <Link to={`/Station/categories/${stationCtx.selectedCategory}`}>
+          <Link to={`${basePath}/categories/${selectedCategory}`}>
             {/* <div style={{ padding: '8px', borderRadius: '4px' }} className="dropdown"> */}
             {name}
           </Link>

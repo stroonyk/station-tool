@@ -11,7 +11,7 @@ export interface IFilterProps {
 }
 
 const Filters: React.FC<IFilterProps> = () => {
-  const stationCtx = useStationContext();
+  const { savedCategories, savedGuides, savedSectors, basePath } = useStationContext();
   const appConfig = AppConfig.getInstance();
   const location = useLocation();
 
@@ -20,27 +20,27 @@ const Filters: React.FC<IFilterProps> = () => {
   }
 
   const pages = [
-    { name: 'Browse', path: '/browse', isLink: true },
-    { name: 'Categories', path: '/categories', items: stationCtx.savedCategories, basePath: '/station/categories/' },
-    { name: 'Guides', path: '/guides', items: stationCtx.savedGuides, basePath: '/station/guides/' },
-    { name: 'Sectors', path: '/sectors', items: stationCtx.savedSectors, basePath: '/station/sectors/' },
-    { name: 'Templates', path: '/templates', isLink: true },
+    { name: 'Browse', path: 'browse', isLink: true },
+    { name: 'Categories', path: 'categories', items: savedCategories },
+    { name: 'Guides', path: 'guides', items: savedGuides },
+    { name: 'Sectors', path: 'sectors', items: savedSectors },
+    { name: 'Templates', path: 'templates', isLink: true },
   ];
-
+  // debugger;
   return (
     <div className="container station-menu-bar">
       <div style={{ display: 'flex', gap: '10px' }}>
         {pages.map((page) => {
           const isCurrentPage = location.pathname.includes(page.path);
           return page.isLink ? (
-            <Link to={`/Station${page.path}`} key={page.name}>
+            <Link to={`${basePath}/${page.path}`} key={page.name}>
               <button className={`dropdown-btn ${isCurrentPage ? 'selected' : ''}`}>{page.name}</button>
             </Link>
           ) : (
             <CustomDropdown
               key={page.name}
               items={page.items || []}
-              basePath={page.basePath}
+              basePath={`${basePath}/${page.path}/`}
               label={page.name}
               selected={isCurrentPage}
             />

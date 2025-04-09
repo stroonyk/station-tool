@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as React from 'react';
-// import { isHomePage } from '../utils/helpers';
+import React, { FC } from 'react';
 
-export interface ISearchInputProps {
+interface SearchInputProps {
   searchQuery: string;
   inputEl: React.Ref<HTMLInputElement>;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -10,37 +9,32 @@ export interface ISearchInputProps {
   onClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function SearchInput({
-  searchQuery,
-  inputEl,
-  setSearchQuery,
-  isSearching,
-  onClick,
-}: ISearchInputProps): React.ReactElement {
+const SearchInput: FC<SearchInputProps> = ({ searchQuery, inputEl, setSearchQuery, isSearching, onClick }) => {
   return (
     <>
       <label className="search-label">Search Now</label>
       <input
         ref={inputEl}
         className="search-field form-control"
-        id={'search-field'}
-        name={'q'}
+        id="search-field"
+        name="q"
         onClick={() => onClick(true)}
-        type={'search'}
-        placeholder={'Search for articles, templates & guides'}
-        role={'search'}
+        type="search"
+        placeholder="USE THE OTHER SEARCH BAR!"
+        role="search"
         value={searchQuery}
-        onChange={(e) => {
-          setSearchQuery(e.target.value.trimStart());
-        }}
+        disabled
+        onChange={(e) => setSearchQuery(e.target.value.trimStart())}
       />
 
-      {true && (
-        <button type={'submit'} className="search-button">
-          <FontAwesomeIcon icon={['fas', 'search']} />
-        </button>
-      )}
+      <button type="submit" className="search-button">
+        {/* <FontAwesomeIcon icon={['fas', 'search']} /> */}
+        <i className="fa fa-search"></i>
+      </button>
+
       {isSearching && <div className="is-searching"></div>}
     </>
   );
-}
+};
+
+export default SearchInput;

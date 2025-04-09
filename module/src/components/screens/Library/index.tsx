@@ -21,11 +21,12 @@ import GuideBreadcrumb from '../../common/Breadcrumbs/GuideBreadcrumb';
 import { AnimatePresence, motion } from 'framer-motion';
 import { formatDate } from '../../../helpers/helpers';
 import FavouriteButton from '../../common/FavouriteButton';
+import { ACTION_TYPE } from '../../../store/stationReducer';
 
 const Library = ({ refresh }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const stationCtx = useStationContext();
+  const { dispatch, swipeDirection, selectedGuide } = useStationContext();
   const { id } = useParams();
   const isSmallerScreen = useMediaQuery({
     query: '(min-width: 1200px)',
@@ -39,14 +40,19 @@ const Library = ({ refresh }) => {
   const hydrateArticle = async (): Promise<void> => {
     const articles = await getStation().articles().get(parseInt(id), { with_meta: true });
     setArticle(articles);
-    stationCtx.setSelectedArticle(parseInt(id));
-    stationCtx.setSelectedCategory(articles.article.category_ids?.[0] || null);
-    stationCtx.setSelectedSector(articles.sectors?.[0]?.id ?? null);
-    stationCtx.setSelectedGuide(articles.sequences?.[0]?.id ?? null);
+    // debugger;
+    // stationCtx.setSelectedArticle(parseInt(id));
+    dispatch({ type: ACTION_TYPE.SET_SELECTED_ARTICLE, payload: parseInt(id) });
+    // stationCtx.setSelectedCategory(articles.article.category_ids?.[0] || null);
+    dispatch({ type: ACTION_TYPE.SET_SELECTED_CATEGORY, payload: articles.article.category_ids?.[0] || null });
+    // stationCtx.setSelectedSector(articles.sectors?.[0]?.id ?? null);
+    dispatch({ type: ACTION_TYPE.SET_SELECTED_SECTOR, payload: articles.sectors?.[0]?.id ?? null });
+    // stationCtx.setSelectedGuide(articles.sequences?.[0]?.id ?? null);
+    dispatch({ type: ACTION_TYPE.SET_SELECTED_GUIDE, payload: articles.sequences?.[0]?.id ?? null });
     const duration = articles.article.metadata?.reading_time;
     setReadingTimeText(`Approximately ${duration} minute${duration === 1 ? '' : 's'}`);
     setLoading(false);
-    if (stationCtx.swipeDirection === 'right') {
+    if (swipeDirection === 'right') {
       fadeInFromLeft = true;
     }
     // const duration = Math.ceil(readingTime(articles.article.content).minutes);
@@ -54,7 +60,8 @@ const Library = ({ refresh }) => {
   };
   const hydrateTemplate = async (): Promise<void> => {
     const templates = await getStation().articles().templates().index(parseInt(id));
-    stationCtx.setTemplates(templates.template);
+    // stationCtx.setTemplates(templates.template);
+    dispatch({ type: ACTION_TYPE.SET_TEMPLATES, payload: templates.template });
   };
 
   useEffect(() => {
@@ -88,11 +95,11 @@ const Library = ({ refresh }) => {
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname} // Triggers animation on route change
-              initial={{ opacity: 0, x: stationCtx.swipeDirection === 'left' ? 100 : -100 }}
+              initial={{ opacity: 0, x: swipeDirection === 'left' ? 100 : -100 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{
                 opacity: 0,
-                x: stationCtx.swipeDirection === 'left' ? -100 : 100, // Use the previous direction for exit
+                x: swipeDirection === 'left' ? -100 : 100, // Use the previous direction for exit
               }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
@@ -125,7 +132,7 @@ const Library = ({ refresh }) => {
                               </div>
                             </div>
                           </div>
-                          {stationCtx.selectedGuide !== null && stationCtx.selectedGuide > -1 && (
+                          {selectedGuide !== null && selectedGuide > -1 && (
                             <div className="grey-loading">
                               <div className="page-meta">
                                 <div>

@@ -155,7 +155,7 @@ export const isFavourite = (list: any[], id: number): boolean => {
 
 export const getSectors = async (id:number): Promise<IArticle[]> => {
   const sectors = await getStation().sectors().articles().index(id);
-  const sectorList = sectors.article.map(({ id, title, excerpt }) => ({ id, title, excerpt }));
+  const sectorList = sectors.article.map(({ id, title, excerpt, updated_at }) => ({ id, title, excerpt, updated_at }));
   // stationCtx.setArticles(sectorList, id, ARTICLES_TYPE.CATEGORY);
   // setLoading(false);
   return sectorList;

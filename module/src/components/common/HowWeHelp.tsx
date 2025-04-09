@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useStationContext } from '../../store/station-context';
 
 const HowWeHelp: React.FC = () => {
+  const { basePath } = useStationContext();
   return (
     <section className="how-we-help">
       <div className="container">
@@ -32,10 +34,7 @@ const HowWeHelp: React.FC = () => {
             </li>
             <li>
               {/* <a href="/browse" style={{ display: 'flex', flexFlow: 'column', alignItems: 'center' }}> */}
-              <Link
-                to="/Station/browse"
-                style={{ display: 'flex', flexFlow: 'column', alignItems: 'center' }}
-              >
+              <Link to={`${basePath}/browse`} style={{ display: 'flex', flexFlow: 'column', alignItems: 'center' }}>
                 <svg
                   aria-hidden="true"
                   focusable="false"

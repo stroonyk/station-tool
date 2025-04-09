@@ -110,11 +110,31 @@ const Browse = ({ refresh }) => {
       };
     }
   }, [selected, loading]);
+  const sortList = (listToSort, sortBy, sortDirection) => {
+    return listToSort.sort((a, b) => {
+      let valA = a[sortBy];
+      let valB = b[sortBy];
 
+      if (sortBy === 'updated_at') {
+        valA = new Date(valA).getTime();
+        valB = new Date(valB).getTime();
+        return sortDirection === 'asc' ? valA - valB : valB - valA;
+      }
+
+      return sortDirection === 'asc'
+        ? valA.toString().localeCompare(valB.toString())
+        : valB.toString().localeCompare(valA.toString());
+    });
+  };
+
+  const sortClicked = (sortBy, sortDirection) => {
+    const sortedList = sortList([...list], sortBy, sortDirection);
+    setList(sortedList);
+  };
   return (
     <>
       <EaseInWrapper>
-        <Header selected={selected} items={browseByItems} />
+        <Header selected={selected} items={browseByItems} sortClicked={sortClicked} />
 
         <div className="container tile-list">
           {loading ? (
@@ -122,15 +142,16 @@ const Browse = ({ refresh }) => {
           ) : (
             list.length > 0 &&
             list.map((item, index) => (
-              <CardComponent key={item.id} item={item} selected={selected} browseByItems={browseByItems} />
+              <CardComponent
+                key={item.id}
+                item={item}
+                selected={selected}
+                browseByItems={browseByItems}
+                favourite={selected === 'article' || selected === 'favourite'}
+              />
             ))
           )}
         </div>
-        {/* {selected === 'article' && ( */}
-        {/* <div ref={loadMoreRef} style={{ height: '10px' }}>
-          bob
-        </div> */}
-        {/* )}*/}
       </EaseInWrapper>
     </>
   );

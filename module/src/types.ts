@@ -36,6 +36,7 @@ export interface IEditorConfig {
   navigatedHome: void;
   menuItems: void;
   user: any;
+  hybrid_monoserver: boolean;
 }
 export interface IStationProps {
   config: IEditorConfig;

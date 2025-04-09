@@ -4,8 +4,8 @@ import classnames from 'classnames';
 // import { useDebounce } from '../../../../hooks/useDebounce';
 import getStation from '../../utils/getStation';
 import SearchItem from './components/SearchItem';
-import { SearchFilter } from './components/SearchFilter';
-import { SearchInput } from './components/SearchInput';
+import SearchFilter from './components/SearchFilter';
+import SearchInput from './components/SearchInput';
 // import ClickOutside from '../../../../hooks/ClickOutside';
 import { isEmpty } from 'lodash';
 import { SearchHistoryItem } from './components/SearchHistoryItem';
@@ -114,7 +114,7 @@ const Search: React.FunctionComponent<ISearchProps> = (props: ISearchProps) => {
   };
   React.useEffect(() => {
     searchHistory().then((result) => {
-      const cleanedResults = result.search.filter((item, index, array) => {
+      const cleanedResults = result.search?.filter((item, index, array) => {
         return item.term !== array[index - 1]?.term;
       });
       setActorSearchHistory(cleanedResults);

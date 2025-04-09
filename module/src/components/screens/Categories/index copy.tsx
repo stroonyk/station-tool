@@ -60,7 +60,8 @@ const CategoryPage = ({ refresh }) => {
                   {article.reviewed_at && (
                     <div className="subtext fs--s">
                       <span style={{ paddingBottom: '1rem' }}>
-                        Last Updated: {format(parseISO(article.reviewed_at), 'do MMM, yyyy')}
+                        {/* Last Updated:  */}
+                        {format(parseISO(article.reviewed_at), 'do MMM, yyyy')}
                       </span>
                     </div>
                   )}

@@ -4,12 +4,15 @@ import MainContentLayout from '../../../layouts/MainContentLayout';
 import getStation from '../../../../utils/getStation';
 import { IArticle } from '@rradar/station-sdk';
 import { Link } from 'react-router-dom';
+import { useStationContext } from '../../../../store/station-context';
 // import DashboardCardsContainer from './components';
 // import Grid from '@rradar/core/GridTemplate';
 
 const New = () => {
   const appConfig = AppConfig.getInstance();
   const [highlighted, setHighlightedArticles] = useState([]);
+  const { basePath } = useStationContext();
+
   const hydrateArticles = async (): Promise<void> => {
     // const { article } = await getStation().articles().index();
     const articles = await getStation().articles().index({ only_highlighted: true });
@@ -29,7 +32,7 @@ const New = () => {
           <div className="tile tile--white" key={highlighted.id}>
             <div className="tile-contents">
               {highlighted.title}
-              <Link to={`/station/library/${highlighted.id}`} key={highlighted.id}>
+              <Link to={`${basePath}library/${highlighted.id}`} key={highlighted.id}>
                 {highlighted.id}
               </Link>
             </div>

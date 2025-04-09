@@ -7,7 +7,10 @@ import SkeletonLoader from '../../common/SkeletonLoader';
 import usePageReset from '../../../hooks/usePageReset';
 import Header from './Header';
 
-const Templates: React.FC = ({ refresh }) => {
+export interface ITemplateProps {
+  refresh: boolean;
+}
+const Templates: React.FC<ITemplateProps> = ({ refresh }) => {
   const { id } = useParams();
   usePageReset(id);
   const navigate = useNavigate();
@@ -32,7 +35,7 @@ const Templates: React.FC = ({ refresh }) => {
   return (
     <>
       <Header />
-      <div className="container tile-list">
+      <div className="container tile-list template">
         {loading ? (
           <SkeletonLoader />
         ) : templates && templates.length > 0 ? (
@@ -49,10 +52,12 @@ const Templates: React.FC = ({ refresh }) => {
                   </div>
                 </div>
                 <div className="subtext my-s">{item.description}</div>
-                <div className="subtext fs--s mt-auto">{formatDate(new Date(item.updated_at))}</div>
-                <span className="list-icon">
-                  <i className={`fas ${fileTypeIcons[item.file_type] || 'fa-file'}`}></i>
-                </span>
+                <div className="subtext fs--s mt-auto">
+                  {formatDate(new Date(item.updated_at))}
+                  <span className="list-icon">
+                    <i className={`fas ${fileTypeIcons[item.file_type] || 'fa-file'}`}></i>
+                  </span>
+                </div>
               </div>
             </a>
           ))

@@ -9,13 +9,13 @@ export interface IGuideProps {
 
 const GuideList: React.FC<IGuideProps> = ({ guides }) => {
   const navigate = useNavigate();
-  const stationCtx = useStationContext();
+  const { selectedArticle, basePath } = useStationContext();
   const handleWheelEvent = useWheelNavigation(guides); // Pass guides list
 
   const handleWheel = (event: WheelEvent) => {
     const newIndex = handleWheelEvent(event);
     if (newIndex === null) return;
-    navigate(`/Station/library/${guides[newIndex].article.id}`);
+    navigate(`${basePath}/library/${guides[newIndex].article.id}`);
   };
 
   return (
@@ -26,8 +26,8 @@ const GuideList: React.FC<IGuideProps> = ({ guides }) => {
           <div className="mini-guide-list-container">
             {guides.map(({ id, article }) => (
               <Link
-                className={`mini-guide-list-card ${article.id === stationCtx.selectedArticle ? 'selected' : ''}`}
-                to={`/Station/library/${article.id}`}
+                className={`mini-guide-list-card ${article.id === selectedArticle ? 'selected' : ''}`}
+                to={`${basePath}/library/${article.id}`}
                 key={`guide${article.id}`}
               >
                 <span className="article-title">{article.title}</span>

@@ -111,6 +111,7 @@ const Search: FC<ISearchProps> = ({
     // debugger;
     if (path) {
       navigate(path);
+      resetSearch();
     }
     // if (path) window.location.href = path;
   };

@@ -46,14 +46,16 @@ export const searchFunction = async (
   try {
     // response = await getStation(req).search().post(searchParams);
     response = await getStation().search().post(searchParams);
-    debugger;
+    // debugger;
     // Transform the response into the required format
     const formattedResults = response.rows.map((item: any) => ({
       id: item.id,
       title: item.source.title,
       path: item.path || `/library/articles/${item.id}`, // Default path if 'path' is unavailable
-      excerpt: item.source.excerpt,
+      excerpt: item.source.excerpt || item.source.description,
       updated_at: item.source.updated_at,
+      search_type: item.source.search_type,
+      file_type: item.source.file_type,
     }));
 
     return formattedResults;
@@ -156,9 +158,12 @@ export const getLastSearches = async (): Promise<IResultsList[]> => {
     formattedSuggestions = uniqueSearches.map((suggestion: string) => ({
       id: suggestion,
       title: suggestion,
-      path: `station/search?term=${encodeURIComponent(suggestion)}&filters=${FILTERS.ARTICLE},${FILTERS.SEQUENCE},${
+      path: `search?term=${encodeURIComponent(suggestion)}&filters=${FILTERS.ARTICLE},${FILTERS.SEQUENCE},${
         FILTERS.TEMPLATE
       }`,
+      // path: `station/search?term=${encodeURIComponent(suggestion)}&filters=${FILTERS.ARTICLE},${FILTERS.SEQUENCE},${
+      //   FILTERS.TEMPLATE
+      // }`,
     }));
   }
   // debugger;

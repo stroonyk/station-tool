@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useStationContext } from '../../../store/station-context';
-import { ARTICLES_TYPE } from '../../../store/stationReducer';
+import { ACTION_TYPE, ARTICLES_TYPE } from '../../../store/stationReducer';
 import { useNavigate } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
 import TitleContainer from '../../common/TitleContainer';
-import { getSectors } from '../../../helpers/helpers';
+import { formatDate, getSectors } from '../../../helpers/helpers';
 import DescriptionContainer from '../../common/DescriptionContainer';
 import EaseInWrapper from '../../common/Animation/EaseInWrapper';
 import usePageReset from '../../../hooks/usePageReset';
+import FavouriteButton from '../../common/FavouriteButton';
 
 const Sectors = ({ refresh }) => {
-  const stationCtx = useStationContext();
+  const { savedArticles, savedSectors, basePath, dispatch } = useStationContext();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -30,10 +31,14 @@ const Sectors = ({ refresh }) => {
 
   useEffect(() => {
     const fetchList = async () => {
-      if (!stationCtx.savedArticles.articles || stationCtx.savedArticles.id !== id) {
+      if (!savedArticles.articles || savedArticles.id !== id) {
         setLoading(true);
         const list = await getSectors(parseInt(id));
-        stationCtx.setArticles(list, id, ARTICLES_TYPE.CATEGORY);
+        // stationCtx.setArticles(list, id, ARTICLES_TYPE.CATEGORY);
+        dispatch({
+          type: ACTION_TYPE.SET_ARTICLES,
+          payload: { articles: list, id: id, articlesType: ARTICLES_TYPE.CATEGORY },
+        });
         setLoading(false);
       }
     };
@@ -51,30 +56,34 @@ const Sectors = ({ refresh }) => {
   return (
     <>
       <EaseInWrapper>
-        <TitleContainer categories={stationCtx.savedSectors} id={parseInt(id)} />
-        <DescriptionContainer categories={stationCtx.savedSectors} id={parseInt(id)} />
+        <TitleContainer categories={savedSectors} id={parseInt(id)} />
+        <DescriptionContainer categories={savedSectors} id={parseInt(id)} />
         <div className="container tile-list">
           {loading ? (
             // Show skeleton loader when loading is true
             <SkeletonLoader />
           ) : (
-            stationCtx.savedArticles.articles &&
-            stationCtx.savedArticles.id === id &&
-            stationCtx.savedArticles.articles.map((item, index) => {
+            savedArticles.articles &&
+            savedArticles.id === id &&
+            savedArticles.articles.map((item, index) => {
               return (
-                <>
-                  <Link
-                    to={`/station/library/${item.id}`}
-                    key={`sectors${item.id}`}
-                    className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
-                  >
-                    <div className="tile-contents">
-                      <h2>{item.title}</h2>
-                      <div className="subtext my-s">{item.excerpt}</div>
-                      <div className="subtext fs--s mt-auto" />
+                <Link
+                  to={`${basePath}/library/${item.id}`}
+                  key={`sectors${item.id}`}
+                  className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
+                >
+                  <div className="tile-contents">
+                    <h2>{item.title}</h2>
+                    <div className="subtext my-s">{item.excerpt}</div>
+                    <div className="subtext fs--s mt-auto">
+                      {formatDate(new Date(item.updated_at))}
+
+                      <div className="button-group article-actions">
+                        <FavouriteButton id={item.id} />
+                      </div>
                     </div>
-                  </Link>
-                </>
+                  </div>
+                </Link>
               );
             })
           )}

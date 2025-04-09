@@ -1,8 +1,12 @@
 import * as React from 'react';
 import Search from '../../Search';
+
+// import Search from '../../common/Search';
+
 import parser from 'html-react-parser';
 import { getState } from '../../../helpers/helpers';
 import customMastheads from '../customMastheads';
+import { getSearchSuggestions } from '../../../utils/searchService';
 
 export interface IMastheadStandardProps {
   title: string;
@@ -14,29 +18,20 @@ export interface IMastheadStandardProps {
   render?: () => React.ReactElement;
 }
 
-export default function MastheadStandard(
-  props: IMastheadStandardProps
-): JSX.Element {
+export default function MastheadStandard(props: IMastheadStandardProps): JSX.Element {
+  // const searchFunction = async (searchTerm: string): Promise<{ id: string; title: string; path: string }[]> => {
+  //   return getSearchSuggestions(searchTerm);
+  // };
+
   const renderMastheadCopyTitle = () => {
-    if (
-      customMastheads[getState().user.custom_landing_page].mastheadCopyTitle
-    ) {
-      return (
-        <h2 className="headline-02">
-          {
-            customMastheads[getState().user.custom_landing_page]
-              .mastheadCopyTitle
-          }
-        </h2>
-      );
+    if (customMastheads[getState().user.custom_landing_page].mastheadCopyTitle) {
+      return <h2 className="headline-02">{customMastheads[getState().user.custom_landing_page].mastheadCopyTitle}</h2>;
     }
     return <></>;
   };
   const renderMastheadCopyContent = () => {
     if (customMastheads[getState().user.custom_landing_page].mastheadCopy) {
-      return customMastheads[
-        getState().user.custom_landing_page
-      ].mastheadCopy?.map((paragraph) => {
+      return customMastheads[getState().user.custom_landing_page].mastheadCopy?.map((paragraph) => {
         return (
           <p
             style={{
@@ -79,20 +74,14 @@ export default function MastheadStandard(
               width={props.imageWidth ? props.imageWidth : '100%'}
             />
           )}
-          {props.title ? (
-            <h1 className="masthead-title">{parser(props.title)}</h1>
-          ) : (
-            <></>
-          )}
+          {props.title ? <h1 className="masthead-title">{parser(props.title)}</h1> : <></>}
           <Search
             searchTerm={props.searchTerm}
             isOpen={props.isOpen}
             callbacks={{ afterSearch: props.searchResultsCB }}
-            allowedFilters={
-              customMastheads[getState().user.custom_landing_page]
-                ?.allowedSearchFilters
-            }
+            allowedFilters={customMastheads[getState().user.custom_landing_page]?.allowedSearchFilters}
           />
+          {/* <Search searchUrl="/station/search?term=" searchFunction={searchFunction} /> */}
 
           {props.render && props.render()}
         </div>

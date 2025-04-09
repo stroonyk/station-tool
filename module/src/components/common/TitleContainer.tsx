@@ -10,7 +10,7 @@ const TitleContainer: React.FC<TitleContainerProps> = ({ categories, id }) => {
   // debugger;
   const title = getTitleById(categories, id);
   return (
-    <h2 style={{ marginTop: '20px', marginBottom: '0px' }} className="container">
+    <h2  className="container h2title">
       {title}
     </h2>
   );

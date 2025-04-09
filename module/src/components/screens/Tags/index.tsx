@@ -15,8 +15,9 @@ import usePageReset from '../../../hooks/usePageReset';
 
 const Tags = ({ refresh }) => {
   const stationCtx = useStationContext();
+  const { basePath } = useStationContext();
   const { id } = useParams();
-    usePageReset(id);
+  usePageReset(id);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
@@ -41,14 +42,14 @@ const Tags = ({ refresh }) => {
   useEffect(() => {
     hydrateArticles();
     hydrateTag();
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth',
-    });
-    stationCtx.setSelectedSector(parseInt(id));
-    stationCtx.setSelectedCategory(-1);
-    stationCtx.setSelectedGuide(-1);
+    // window.scrollTo({
+    //   top: 0,
+    //   left: 0,
+    //   behavior: 'smooth',
+    // });
+    // stationCtx.setSelectedSector(parseInt(id));
+    // stationCtx.setSelectedCategory(-1);
+    // stationCtx.setSelectedGuide(-1);
   }, [id]);
 
   return (
@@ -70,19 +71,17 @@ const Tags = ({ refresh }) => {
             articles &&
             articles.map((item, index) => {
               return (
-                <>
-                  <Link
-                    to={`/station/library/${item.id}`}
-                    key={`sectors${item.id}`}
-                    className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
-                  >
-                    <div className="tile-contents">
-                      <h2>{item.title}</h2>
-                      <div className="subtext my-s">{item.excerpt}</div>
-                      <div className="subtext fs--s mt-auto" />
-                    </div>
-                  </Link>
-                </>
+                <Link
+                  to={`${basePath}/library/${item.id}`}
+                  key={`sectors${item.id}`}
+                  className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
+                >
+                  <div className="tile-contents">
+                    <h2>{item.title}</h2>
+                    <div className="subtext my-s">{item.excerpt}</div>
+                    <div className="subtext fs--s mt-auto" />
+                  </div>
+                </Link>
               );
             })
           )}

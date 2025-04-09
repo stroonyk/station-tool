@@ -1,21 +1,20 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as React from 'react';
+import React, { FC } from 'react';
 import classnames from 'classnames';
-// import { SizeMe } from 'react-sizeme';
 
-export interface ISearchFilterProps {
+interface SearchFilterProps {
   updateFilters: (resultType: string) => void;
   resultType: string;
   visible: boolean;
   label: string;
 }
 
-export function SearchFilter({ resultType, visible, updateFilters, label }: ISearchFilterProps): React.ReactElement {
-  const getFilterContent = (): React.ReactElement => {
+const SearchFilter: FC<SearchFilterProps> = ({ resultType, visible, updateFilters, label }) => {
+  const getFilterContent = (): React.ReactElement | null => {
     if (window.innerWidth >= 680) {
       return (
         <>
-          <FontAwesomeIcon icon={['fas', visible ? 'eye' : 'eye-slash']} style={{ marginRight: '0.5rem' }} />
+          {/* <FontAwesomeIcon icon={['fas', visible ? 'eye' : 'eye-slash']} style={{ marginRight: '0.5rem' }} /> */}
           {label}
         </>
       );
@@ -27,31 +26,25 @@ export function SearchFilter({ resultType, visible, updateFilters, label }: ISea
           return <FontAwesomeIcon icon={['fal', 'books']} />;
         case 'article_template':
           return <FontAwesomeIcon icon={['fal', 'file-download']} />;
+        default:
+          return null;
       }
     }
   };
 
   return (
-    // <SizeMe>
-    <>
-      {() => {
-        return (
-          <div
-            className={classnames('search-filters--pill', {
-              [resultType]: true,
-            })}
-            style={{
-              background: visible ? '#606060' : '#cecece',
-            }}
-            onClick={() => {
-              updateFilters(resultType);
-            }}
-          >
-            {getFilterContent()}
-          </div>
-        );
+    <div
+      className={classnames('search-filters--pill', {
+        [resultType]: true,
+      })}
+      style={{
+        background: visible ? '#606060' : '#cecece',
       }}
-    </>
-    // </SizeMe>
+      onClick={() => updateFilters(resultType)}
+    >
+      {getFilterContent()}
+    </div>
   );
-}
+};
+
+export default SearchFilter;

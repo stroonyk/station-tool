@@ -4,15 +4,16 @@ import { useStationContext } from '../../../store/station-context';
 import getStation from '../../../utils/getStation';
 import { useNavigate } from 'react-router-dom';
 import TitleContainer from '../../common/TitleContainer';
-import { getTitleById } from '../../../helpers/helpers';
+import { formatDate, getTitleById } from '../../../helpers/helpers';
 import DescriptionContainer from '../../common/DescriptionContainer';
 import EaseInWrapper from '../../common/Animation/EaseInWrapper';
 import usePageReset from '../../../hooks/usePageReset';
+import FavouriteButton from '../../common/FavouriteButton';
 
 const Guide = ({ refresh }) => {
-  const stationCtx = useStationContext();
+  const { savedGuides, basePath } = useStationContext();
   const { id } = useParams();
-    usePageReset(id);
+  usePageReset(id);
   const navigate = useNavigate();
   const [articles, setArticles] = useState([]);
 
@@ -26,37 +27,35 @@ const Guide = ({ refresh }) => {
   }, [refresh]);
 
   useEffect(() => {
-    // if (!stationCtx.savedGuides || stationCtx.savedGuides.length === 0) {
     hydrateGuide();
-    // }
-    // stationCtx.setSelectedGuide(parseInt(id));
-    // stationCtx.setSelectedCategory(-1);
-    // stationCtx.setSelectedSector(-1);
   }, [id]);
 
   return (
     <>
       <EaseInWrapper>
-        <TitleContainer categories={stationCtx.savedGuides} id={parseInt(id)} />
-        <DescriptionContainer categories={stationCtx.savedGuides} id={parseInt(id)} />
+        <TitleContainer categories={savedGuides} id={parseInt(id)} />
+        <DescriptionContainer categories={savedGuides} id={parseInt(id)} />
 
         <div className="container tile-list">
           {articles &&
             articles.map((item, index) => {
               return (
-                <>
-                  <Link
-                    to={`/station/library/${item.article.id}`}
-                    key={`guide${index}`}
-                    className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
-                  >
-                    <div className="tile-contents">
-                      <h2>{item.article.title}</h2>
-                      <div className="subtext my-s">{item.article.excerpt}</div>
-                      <div className="subtext fs--s mt-auto" />
+                <Link
+                  to={`${basePath}/library/${item.article.id}`}
+                  key={`guide${index}`}
+                  className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
+                >
+                  <div className="tile-contents">
+                    <h2>{item.article.title}</h2>
+                    <div className="subtext my-s">{item.article.excerpt}</div>
+                    <div className="subtext fs--s mt-auto">
+                      API Needs article date
+                      <div className="button-group article-actions">
+                        <FavouriteButton id={item.article.id} />
+                      </div>
                     </div>
-                  </Link>
-                </>
+                  </div>
+                </Link>
               );
             })}
         </div>

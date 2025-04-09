@@ -7,7 +7,7 @@ const Home = () => {
   const appConfig = AppConfig.getInstance();
 
   useEffect(() => {
-    appConfig.getConfig().navigatedHome();
+    appConfig.getConfig()?.navigatedHome();
   }, []);
 
   return <>{<ClassicStation />}</>;

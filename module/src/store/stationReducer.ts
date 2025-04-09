@@ -1,5 +1,8 @@
+import { IEditorConfig } from '../types';
+import Station from '@rradar/station-sdk';
+
 export enum ACTION_TYPE {
-  INITIALISE = 'INITIALISE_SHIPS',
+  INITIALISE = 'INITIALISE',
   SET_SELECTED_ARTICLE = 'SET_SELECTED_ARTICLE',
   SET_ARTICLES = 'SET_ARTICLES',
   SET_CATEGORIES = 'SET_CATEGORIES',
@@ -18,6 +21,9 @@ export enum ARTICLES_TYPE {
 }
 
 export const stationInitialState = {
+  config: null,
+  basePath: null,
+  stationSDK: null,
   selectedArticle: 0,
   savedArticles: {},
   savedCategories: [],
@@ -31,7 +37,10 @@ export const stationInitialState = {
   savedTemplates: [],
   swipeDirection: 'left',
 };
-type UserState = {
+export type UserState = {
+  config: IEditorConfig | null;
+  basePath: string;
+  stationSDK: Station;
   selectedArticle: number;
   savedArticles: IArticlesType;
   savedCategories: [];
@@ -50,17 +59,17 @@ export interface IArticlesType {
   id: number;
   articleType: ARTICLES_TYPE;
 }
-type UserAction =
+export type UserAction =
   | { type: ACTION_TYPE.INITIALISE }
   | { type: ACTION_TYPE.SET_SELECTED_ARTICLE; payload: number }
   | { type: ACTION_TYPE.SET_SELECTED_CATEGORY; payload: number }
   | { type: ACTION_TYPE.SET_SELECTED_GUIDE; payload: number }
   | { type: ACTION_TYPE.SET_SELECTED_SECTOR; payload: number }
-  | { type: ACTION_TYPE.SET_CATEGORIES; payload: [] }
-  | { type: ACTION_TYPE.SET_TEMPLATES; payload: [] }
-  | { type: ACTION_TYPE.SET_GUIDES; payload: [] }
-  | { type: ACTION_TYPE.SET_SECTORS; payload: [] }
-  | { type: ACTION_TYPE.SET_FAVOURITES; payload: [] }
+  | { type: ACTION_TYPE.SET_CATEGORIES; payload: any[] } 
+  | { type: ACTION_TYPE.SET_TEMPLATES; payload: any[] } 
+  | { type: ACTION_TYPE.SET_GUIDES; payload: any[] } 
+  | { type: ACTION_TYPE.SET_SECTORS; payload: any[] } 
+  | { type: ACTION_TYPE.SET_FAVOURITES; payload: any[] } 
   | { type: ACTION_TYPE.SET_SWIPE_DIRECTION; payload: string }
   | { type: ACTION_TYPE.GO_HOME; payload: boolean }
   | { type: ACTION_TYPE.SET_ARTICLES; payload: IArticlesType };
@@ -68,8 +77,11 @@ type UserAction =
 const stationReducer = (state: UserState, action: UserAction) => {
   switch (action.type) {
     case ACTION_TYPE.INITIALISE: {
+      const basePath = state.config.hybrid_monoserver ? '/station' : '';
       return {
         ...state,
+        basePath,
+        stationSDK: state.config.station,
       };
     }
     case ACTION_TYPE.SET_SELECTED_ARTICLE: {

@@ -45,11 +45,11 @@ const TemplateList: React.FC<ITemplateProps> = () => {
 
           {isOpen && (
             <div ref={dropdownRef} className="mini-template-dropdown">
-              {stationCtx.savedTemplates.map(({ id, title }) => (
+              {stationCtx.savedTemplates.map(({ template_id, title }) => (
                 <div
-                  key={id}
+                  key={template_id}
                   className="mini-template-div"
-                  onClick={() => handleTemplateClick(id)} // Close dropdown on click
+                  onClick={() => handleTemplateClick(template_id)} // Close dropdown on click
                 >
                   <span className="mini-template-title">{title}</span>
                 </div>

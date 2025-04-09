@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useStationContext } from '../../../store/station-context';
-import getStation from '../../../utils/getStation';
 import { useNavigate } from 'react-router-dom';
-import TitleContainer from '../../common/TitleContainer';
-import { getTitleById } from '../../../helpers/helpers';
-import DescriptionContainer from '../../common/DescriptionContainer';
 import EaseInWrapper from '../../common/Animation/EaseInWrapper';
-import usePageReset from '../../../hooks/usePageReset';
 import { searchFunction } from '../../../utils/searchService';
 import SkeletonLoader from '../../common/SkeletonLoader';
-import { format, parseISO } from 'date-fns';
+import SearchItem from './SearchItem';
+import { downloadTemplate, fileTypeIcons, formatDate } from '../../../helpers/helpers';
+import { GuideIcon } from '../../../guideicon';
+import { ArticleIcon } from '../../../articleicon';
+import { TemplateIcon } from '../../../templateicon';
 
 const FILTERS = {
   ARTICLE: 'article',
@@ -19,15 +18,19 @@ const FILTERS = {
 };
 
 const Search: React.FC = ({ refresh }) => {
-  const stationCtx = useStationContext();
   // const { id } = useParams();
   // usePageReset(id);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState<{ article?: boolean; sequence?: boolean; article_template?: boolean }>({});
-  const [results, setResults] = useState<{ id: string; title: string; path: string }[]>([]);
+  // const [results, setResults] = useState<
+  //   { id: string; title: string; path: string; search_type: string; file_type: string }[]
+  // >([]);
   const [loading, setLoading] = useState(true);
+  const [sequenceList, setSequenceList] = useState([]);
+  const [articleList, setArticleList] = useState([]);
+  const [templateList, setTemplateList] = useState([]);
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -47,9 +50,14 @@ const Search: React.FC = ({ refresh }) => {
         setSearchTerm(term);
         setFilters(newFilters);
 
-        // Await the search function
         const searchResults = await searchFunction(term, newFilters);
-        setResults(searchResults);
+        const sequences = searchResults.filter((item) => item.search_type === 'sequence');
+        const articles = searchResults.filter((item) => item.search_type === 'article');
+        const templates = searchResults.filter((item) => item.search_type === 'article_template');
+
+        setSequenceList(sequences);
+        setArticleList(articles);
+        setTemplateList(templates);
       } catch (err) {
         console.error(err);
       } finally {
@@ -70,35 +78,102 @@ const Search: React.FC = ({ refresh }) => {
         <DescriptionContainer categories={stationCtx.savedGuides} id={parseInt(id)} /> */}
 
         <div className="container tile-list">
-          <h2>Search Results for {searchTerm}</h2>
+          <h2 className="h2title">Search Results for {searchTerm}</h2>
         </div>
-        <div className="container tile-list">
-          {loading ? (
+        {/* <div className="container tile-list"> */}
+        {loading ? (
+          <div className="container tile-list">
             <SkeletonLoader />
-          ) : (
-            results.map((item) => (
+          </div>
+        ) : (
+          <>
+            {/* Template List */}
+            {templateList.length > 0 && (
               <>
-                <Link
-                  to={`/station/library/${item.id}`}
-                  key={`article${item.id}`}
-                  className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
-                >
-                  <div className="tile-contents">
-                    <h2>{item.title}</h2>
-                    <div className="subtext my-s">{item.excerpt}</div>
-                    {item.updated_at && (
-                      <div className="subtext fs--s">
-                        <span style={{ paddingBottom: '1rem' }}>
-                          Last Updated: {format(parseISO(item.updated_at), 'do MMM, yyyy')}
-                        </span>
+                <div className="container tile-list">
+                  <h3 className="h3title">
+                    {' '}
+                    <span className="list-icon" style={{ marginRight: '10px' }}>
+                      <TemplateIcon />
+                    </span>
+                    Templates
+                  </h3>
+                </div>
+                <div className="container tile-list template">
+                  {templateList.map((item) => (
+                    <a
+                      key={item.id}
+                      className="tile tile--350 tile--link-title-underline tile--white article flex-column"
+                      onClick={() => downloadTemplate(item.id.match(/\d+$/)?.[0])}
+                    >
+                      <div className="tile-contents">
+                        <h2>{item.title}</h2>
+
+                        <div className="subtext my-s">{item.description}</div>
+                        <div className="subtext fs--s mt-auto">
+                          {formatDate(new Date(item.updated_at))}
+                          <span className="list-icon">
+                            <i className={`fas ${fileTypeIcons[item.file_type] || 'fa-file'}`}></i>
+                          </span>
+                        </div>
                       </div>
-                    )}
-                  </div>
-                </Link>
+                    </a>
+                  ))}
+                </div>
               </>
-            ))
-          )}
-        </div>
+            )}
+            {/* Sequence List */}
+            {sequenceList.length > 0 && (
+              <>
+                <div className="container tile-list">
+                  <h3 className="h3title">
+                    <span className="list-icon" style={{ marginRight: '10px' }}>
+                      <GuideIcon />
+                    </span>
+                    Guides
+                  </h3>
+                </div>
+                <div className="container tile-list guides">
+                  {sequenceList.map((item) => (
+                    <SearchItem
+                      path={'guides'}
+                      blurb={item.excerpt}
+                      id={item.id}
+                      updated_at={item.updated_at}
+                      title={item.title}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Article List */}
+            {articleList.length > 0 && (
+              <>
+                <div className="container tile-list">
+                  <h3 className="h3title">
+                    <span className="list-icon" style={{ marginRight: '10px' }}>
+                      <ArticleIcon />
+                    </span>
+                    Articles
+                  </h3>
+                </div>
+                <div className="container tile-list">
+                  {articleList.map((item) => (
+                    <SearchItem
+                      path={'library'}
+                      blurb={item.excerpt}
+                      favourite={true}
+                      id={item.id}
+                      updated_at={item.updated_at}
+                      title={item.title}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </>
+        )}
       </EaseInWrapper>
     </>
   );

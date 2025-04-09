@@ -1,6 +1,7 @@
 import { useStationContext } from '../../store/station-context';
 import { isFavourite } from '../../helpers/helpers';
-import getStation from '../../utils/getStation';
+import { ACTION_TYPE } from '../../store/stationReducer';
+// import getStation from '../../utils/getStation';
 
 export interface IFavouriteProps {
   id: number;
@@ -16,31 +17,37 @@ let dummyFavourite = {
 };
 
 const FavouriteButton: React.FC<IFavouriteProps> = ({ id }) => {
-  const stationCtx = useStationContext();
+  const { hydrateFavourites, stationSDK, savedFavourites, dispatch } = useStationContext();
 
   const favouriteClickedHandler = async (articleId: number, event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     dummyFavourite.id = articleId;
 
-    if (isFavourite(stationCtx.savedFavourites, articleId)) {
+    if (isFavourite(savedFavourites, articleId)) {
       // leave this!!! it's so we're super responsive on a slow network. obvs error checking needed
-      stationCtx.setFavourites(stationCtx.savedFavourites.filter((item) => item.id !== articleId));
-      const mess = await getStation().articles().favourite().delete(articleId);
+      // setFavourites(savedFavourites.filter((item) => item.id !== articleId));
+      dispatch({ type: ACTION_TYPE.SET_FAVOURITES, payload: savedFavourites.filter((item) => item.id !== articleId) });
+      const mess = await stationSDK.articles().favourite().delete(articleId);
     } else {
       // leave this!!! it's so we're super responsive on a slow network. obvs error checking needed
-      stationCtx.setFavourites([...stationCtx.savedFavourites, dummyFavourite]);
-      const mess = await getStation().articles().favourite().post(articleId);
+      // setFavourites([...savedFavourites, dummyFavourite]);
+      dispatch({
+        type: ACTION_TYPE.SET_FAVOURITES,
+        payload: [...savedFavourites, dummyFavourite],
+      });
+
+      const mess = await stationSDK.articles().favourite().post(articleId);
     }
 
     // now hydrate based on the real api results
-    stationCtx.hydrateFavourites();
+    hydrateFavourites();
   };
 
   return (
     <>
       <button
         title="Favourite"
-        className={`icon-button ${isFavourite(stationCtx.savedFavourites, id) ? 'favourited' : ''}`}
+        className={`icon-button ${isFavourite(savedFavourites, id) ? 'favourited' : ''}`}
         onClick={(event) => favouriteClickedHandler(id, event)}
       >
         <span className="list-icon">

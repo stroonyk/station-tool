@@ -1,11 +1,12 @@
 import { useRef } from 'react';
 import { useStationContext } from '../store/station-context';
+import { ACTION_TYPE } from '../store/stationReducer';
 
 const SWIPE_THRESHOLD = 50; // Minimum swipe distance
 const SWIPE_COOLDOWN = 600; // Prevent double triggers
 
 export const useWheelNavigation = (list) => {
-  const stationCtx = useStationContext();
+  const { dispatch } = useStationContext();
   const lastSwipeTime = useRef(0);
 
   return (event) => {
@@ -31,7 +32,8 @@ export const useWheelNavigation = (list) => {
     }
 
     lastSwipeTime.current = now;
-    stationCtx.setSwipeDirection(direction); // Set swipe direction inside the hook
+    // stationCtx.setSwipeDirection(direction); // Set swipe direction inside the hook
+    dispatch({ type: ACTION_TYPE.SET_SWIPE_DIRECTION, payload: direction });
 
     return newIndex;
   };

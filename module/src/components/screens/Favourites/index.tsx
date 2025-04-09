@@ -11,7 +11,7 @@ import EaseInWrapper from '../../common/Animation/EaseInWrapper';
 import usePageReset from '../../../hooks/usePageReset';
 
 const Favourites = ({ refresh }) => {
-  const stationCtx = useStationContext();
+  const { basePath, savedSectors, savedArticles } = useStationContext();
   const { id } = useParams();
   usePageReset(id);
   const navigate = useNavigate();
@@ -37,20 +37,20 @@ const Favourites = ({ refresh }) => {
   return (
     <>
       <EaseInWrapper>
-        <TitleContainer categories={stationCtx.savedSectors} id={parseInt(id)} />
-        <DescriptionContainer categories={stationCtx.savedSectors} id={parseInt(id)} />
+        <TitleContainer categories={savedSectors} id={parseInt(id)} />
+        <DescriptionContainer categories={savedSectors} id={parseInt(id)} />
         <div className="container tile-list">
           {loading ? (
             // Show skeleton loader when loading is true
             <SkeletonLoader />
           ) : (
-            stationCtx.savedArticles.articles &&
-            stationCtx.savedArticles.id === id &&
-            stationCtx.savedArticles.articles.map((item, index) => {
+            savedArticles.articles &&
+            savedArticles.id === id &&
+            savedArticles.articles.map((item, index) => {
               return (
                 <>
                   <Link
-                    to={`/station/library/${item.id}`}
+                    to={`${basePath}/library/${item.id}`}
                     key={`sectors${item.id}`}
                     className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
                   >

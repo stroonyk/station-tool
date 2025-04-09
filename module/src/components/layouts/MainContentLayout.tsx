@@ -6,6 +6,7 @@ import TestSearch from '../common/TestSearch';
 import Search from '../common/Search';
 import { getSearchSuggestions, getSearchFunction } from '../../utils/searchService';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useStationContext } from '../../store/station-context';
 
 // import Breadcrumbs from '../common/Breadcrumbs';
 
@@ -47,9 +48,10 @@ const searchFunction = async (searchTerm: string): Promise<{ id: string; title: 
 // };
 
 const MainContentLayout: FC<IMainContentLayout> = ({ children, background = 'white' }) => {
+  const { basePath } = useStationContext();
   return (
     <div className="main-content-layout">
-      <Search searchUrl="/station/search?term=" searchFunction={searchFunction} />
+      <Search searchUrl={`${basePath}/search?term=`} searchFunction={searchFunction} />
       <Filters />
 
       <Outlet />

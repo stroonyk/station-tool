@@ -3,6 +3,7 @@ import * as React from 'react';
 import { getSessionId, getState } from '../../../helpers/helpers';
 import getStation from '../../../utils/getStation';
 import { Link } from 'react-router-dom';
+import { useStationContext } from '../../../store/station-context';
 
 export interface IMastheadVideoDocumentsProps {
   videoUrl?: string;
@@ -13,6 +14,8 @@ export interface IMastheadVideoDocumentsProps {
 const MastheadVideoDocuments: React.FC<IMastheadVideoDocumentsProps> = (props) => {
   const [staticCategories, setStaticCategories] = React.useState<ICategory[]>();
   const [staticDocuments, setStaticDocuments] = React.useState<any[]>();
+  const { basePath } = useStationContext();
+
   React.useEffect(() => {
     if (getState().user.features_by_key['STATIC_LANDING_CATEGORIES']) {
       getCategories();
@@ -92,8 +95,10 @@ const MastheadVideoDocuments: React.FC<IMastheadVideoDocumentsProps> = (props) =
                     <h2>{category.title}</h2>
                   </div>
                   <p>{category.description ? category.description.replace(/<[^>]+>/g, '') : 'No Description'}</p>
-                  <Link to={`/Station/categories/${category.id}`}>
-                    <a className="primary-button">View</a>
+                  <Link to={`${basePath}/categories/${category.id}`}>
+                    {/* <a className="primary-button"> */}
+                    View
+                    {/* </a> */}
                   </Link>
                 </div>
               </div>

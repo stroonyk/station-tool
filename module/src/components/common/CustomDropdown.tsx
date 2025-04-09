@@ -13,7 +13,7 @@ const Dropdown: React.FC<DropdownProps> = ({ items, basePath, label, selectedId,
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const selectedItem = items.find((item) => item.id === selectedId);
+  const selectedItem = items?.find((item) => item.id === selectedId);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

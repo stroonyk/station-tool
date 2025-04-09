@@ -7,21 +7,21 @@ import { useStationContext } from '../../../store/station-context';
 // }
 
 const SectorBreadcrumb: React.FC = () => {
-  const stationCtx = useStationContext();
+  const { selectedSector, savedSectors, basePath } = useStationContext();
   const [name, setName] = useState('');
-  const getTitleById = (id) => stationCtx.savedSectors.find((sector) => sector.id === id)?.title;
+  const getTitleById = (id) => savedSectors.find((sector) => sector.id === id)?.title;
 
   useEffect(() => {
     // debugger;
 
-    setName(getTitleById(stationCtx.selectedSector));
-  }, [stationCtx.selectedSector, stationCtx.savedSectors]);
+    setName(getTitleById(selectedSector));
+  }, [selectedSector, savedSectors]);
   return (
     <>
-      {stationCtx.selectedSector !== null && stationCtx.selectedSector > -1 && (
+      {selectedSector !== null && selectedSector > -1 && (
         <div className="mini-sector-container">
           <span className="mini-sector-title">Sector</span>
-          <Link to={`/Station/sectors/${stationCtx.selectedSector}`}>
+          <Link to={`${basePath}/sectors/${selectedSector}`}>
             {/* <div style={{ padding: '8px', borderRadius: '4px' }} className="dropdown"> */}
             <span className="sector-title">{name}</span>
           </Link>

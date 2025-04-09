@@ -21,21 +21,21 @@ export enum ARTICLES_TYPE {
 }
 
 export const stationInitialState = {
-  config: null,
-  basePath: null,
-  stationSDK: null,
+  config: null as IEditorConfig | null,
+  basePath: null as string | null,
+  stationSDK: null as Station | null,
   selectedArticle: 0,
-  savedArticles: {},
-  savedCategories: [],
-  savedGuides: [],
-  savedSectors: [],
-  savedFavourites: [],
+  savedArticles: {} as IArticlesType,
+  savedCategories: [] as any[],
+  savedGuides: [] as any[],
+  savedSectors: [] as any[],
+  savedFavourites: [] as any[],
+  savedTemplates: [] as any[],
   goHome: false,
   selectedCategory: 0,
   selectedGuide: 0,
   selectedSector: 0,
-  savedTemplates: [],
-  swipeDirection: 'left',
+  swipeDirection: 'left' as 'left' | 'right',
 };
 export type UserState = {
   config: IEditorConfig | null;
@@ -43,15 +43,15 @@ export type UserState = {
   stationSDK: Station;
   selectedArticle: number;
   savedArticles: IArticlesType;
-  savedCategories: [];
-  savedGuides: [];
-  savedSectors: [];
-  savedFavourites: [];
+  savedCategories: any[];
+  savedGuides: any[];
+  savedSectors: any[];
+  savedFavourites: any[];
   goHome: boolean;
   selectedCategory: number;
   selectedGuide: number;
   selectedSector: number;
-  savedTemplates: [];
+  savedTemplates: any[];
   swipeDirection: 'left' | 'right';
 };
 export interface IArticlesType {
@@ -65,12 +65,12 @@ export type UserAction =
   | { type: ACTION_TYPE.SET_SELECTED_CATEGORY; payload: number }
   | { type: ACTION_TYPE.SET_SELECTED_GUIDE; payload: number }
   | { type: ACTION_TYPE.SET_SELECTED_SECTOR; payload: number }
-  | { type: ACTION_TYPE.SET_CATEGORIES; payload: any[] } 
-  | { type: ACTION_TYPE.SET_TEMPLATES; payload: any[] } 
-  | { type: ACTION_TYPE.SET_GUIDES; payload: any[] } 
-  | { type: ACTION_TYPE.SET_SECTORS; payload: any[] } 
-  | { type: ACTION_TYPE.SET_FAVOURITES; payload: any[] } 
-  | { type: ACTION_TYPE.SET_SWIPE_DIRECTION; payload: string }
+  | { type: ACTION_TYPE.SET_CATEGORIES; payload: [] }
+  | { type: ACTION_TYPE.SET_TEMPLATES; payload: [] }
+  | { type: ACTION_TYPE.SET_GUIDES; payload: [] }
+  | { type: ACTION_TYPE.SET_SECTORS; payload: [] }
+  | { type: ACTION_TYPE.SET_FAVOURITES; payload: [] }
+  | { type: ACTION_TYPE.SET_SWIPE_DIRECTION; payload: 'left' | 'right' }
   | { type: ACTION_TYPE.GO_HOME; payload: boolean }
   | { type: ACTION_TYPE.SET_ARTICLES; payload: IArticlesType };
 

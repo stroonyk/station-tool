@@ -1,7 +1,4 @@
 import { Link } from 'react-router-dom';
-// import { useStationContext } from '../../store/station-context';
-import { useEffect, useState } from 'react';
-import getStation from '../../utils/getStation';
 import React from 'react';
 import { useStationContext } from '../../store/station-context';
 

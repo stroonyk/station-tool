@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useStationContext } from '../../../store/station-context';
-import getStation from '../../../utils/getStation';
-import { ARTICLES_TYPE } from '../../../store/stationReducer';
 import { useNavigate } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
-import Breadcrumbs from '../../common/Breadcrumbs/Breadcrumbs';
-import TitleContainer from '../../common/TitleContainer';
-import { getTitleById } from '../../../helpers/helpers';
-import DescriptionContainer from '../../common/DescriptionContainer';
-import { AnimatePresence, motion } from 'framer-motion';
 import EaseInWrapper from '../../common/Animation/EaseInWrapper';
 import usePageReset from '../../../hooks/usePageReset';
+import CardComponent from '../../common/CardComponent';
 
-const Tags = ({ refresh }) => {
-  const stationCtx = useStationContext();
-  const { basePath } = useStationContext();
+interface ITagsProps {
+  refresh: boolean;
+}
+const Tags = ({ refresh }: ITagsProps) => {
+  const { stationSDK } = useStationContext();
   const { id } = useParams();
   usePageReset(id);
   const navigate = useNavigate();
@@ -24,13 +20,13 @@ const Tags = ({ refresh }) => {
   const [tag, setTag] = useState();
 
   const hydrateArticles = async (): Promise<void> => {
-    const articles = await getStation().tags().articles().index(parseInt(id));
+    const articles = await stationSDK.tags().articles().index(parseInt(id));
     const articleList = articles.article.map(({ id, title, excerpt }) => ({ id, title, excerpt }));
     setArticles(articleList);
     setLoading(false);
   };
   const hydrateTag = async (): Promise<void> => {
-    const tag = await getStation().tags().get(parseInt(id));
+    const tag = await stationSDK.tags().get(parseInt(id));
     // debugger;
     setTag(tag.tag);
   };
@@ -42,14 +38,6 @@ const Tags = ({ refresh }) => {
   useEffect(() => {
     hydrateArticles();
     hydrateTag();
-    // window.scrollTo({
-    //   top: 0,
-    //   left: 0,
-    //   behavior: 'smooth',
-    // });
-    // stationCtx.setSelectedSector(parseInt(id));
-    // stationCtx.setSelectedCategory(-1);
-    // stationCtx.setSelectedGuide(-1);
   }, [id]);
 
   return (
@@ -65,24 +53,11 @@ const Tags = ({ refresh }) => {
         )}
         <div className="container tile-list">
           {loading ? (
-            // Show skeleton loader when loading is true
             <SkeletonLoader />
           ) : (
             articles &&
             articles.map((item, index) => {
-              return (
-                <Link
-                  to={`${basePath}/library/${item.id}`}
-                  key={`sectors${item.id}`}
-                  className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
-                >
-                  <div className="tile-contents">
-                    <h2>{item.title}</h2>
-                    <div className="subtext my-s">{item.excerpt}</div>
-                    <div className="subtext fs--s mt-auto" />
-                  </div>
-                </Link>
-              );
+              return <CardComponent key={item.id} item={item} path={'library'} favourite={true} />;
             })
           )}
         </div>

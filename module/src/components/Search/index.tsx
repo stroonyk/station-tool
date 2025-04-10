@@ -9,8 +9,6 @@ import SearchInput from './components/SearchInput';
 // import ClickOutside from '../../../../hooks/ClickOutside';
 import { isEmpty } from 'lodash';
 import { SearchHistoryItem } from './components/SearchHistoryItem';
-// import { injectedSearchBody } from '../../../constants/injectedSearchSettings';
-import { Button } from '@rradar/core';
 
 export interface IFilterType {
   label: string;

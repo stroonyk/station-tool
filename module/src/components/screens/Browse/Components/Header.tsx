@@ -2,19 +2,19 @@ import CustomDropdown from '../../../common/CustomDropdown';
 import { getDynamicValueById } from '../../../../helpers/helpers';
 import SortBy from '../../../common/SortBy';
 import { useStationContext } from '../../../../store/station-context';
+import { browseByItems } from './config';
 
 export interface IHeaderProps {
   selected: string;
-  description: string;
-  items: [];
   sortClicked?: (sortBy: string, direction: string) => void;
 }
 
-const Header: React.FC = ({ selected, items, description, sortClicked }: IHeaderProps) => {
+const Header: React.FC<IHeaderProps> = ({ selected, sortClicked }) => {
   const { basePath } = useStationContext();
   const sortClickedHandler = (sortBy: string, direction: string) => {
     sortClicked?.(sortBy, direction);
   };
+  const description = getDynamicValueById(browseByItems, selected, 'description');
   return (
     <>
       <div className="container">
@@ -25,7 +25,7 @@ const Header: React.FC = ({ selected, items, description, sortClicked }: IHeader
               <div style={{ display: 'flex', gap: '10px' }}>
                 <CustomDropdown
                   selectedId={selected}
-                  items={items}
+                  items={browseByItems}
                   basePath={`${basePath}/browse?by=`}
                   label="Category"
                   selected={false}

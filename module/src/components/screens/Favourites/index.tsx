@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useStationContext } from '../../../store/station-context';
-import getStation from '../../../utils/getStation';
-import { ARTICLES_TYPE } from '../../../store/stationReducer';
 import { useNavigate } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
 import TitleContainer from '../../common/TitleContainer';
@@ -10,7 +8,10 @@ import DescriptionContainer from '../../common/DescriptionContainer';
 import EaseInWrapper from '../../common/Animation/EaseInWrapper';
 import usePageReset from '../../../hooks/usePageReset';
 
-const Favourites = ({ refresh }) => {
+interface IFavouritesProps {
+  refresh: boolean;
+}
+const Favourites = ({ refresh }: IFavouritesProps) => {
   const { basePath, savedSectors, savedArticles } = useStationContext();
   const { id } = useParams();
   usePageReset(id);

@@ -1,21 +1,18 @@
 import { Link } from 'react-router-dom';
-// import { useStationContext } from '../../store/station-context';
 import { useEffect, useState } from 'react';
-import getStation from '../../utils/getStation';
 import React from 'react';
 import { useStationContext } from '../../store/station-context';
 
 export interface IRelatedArticlesProps {
   articleId: number;
-  // tags: [];
 }
 const RelatedArticleList: React.FC<IRelatedArticlesProps> = ({ articleId }) => {
-  // const stationCtx = useStationContext();
+  const { stationSDK } = useStationContext();
   const [articles, setArticles] = useState([]);
   const { basePath } = useStationContext();
 
   const hydrateRelatedArticles = async (): Promise<void> => {
-    const articles = await getStation().articles().related().index(articleId);
+    const articles = await stationSDK.articles().related().index(articleId);
     const articleList = articles.relation.map(({ id, title }) => ({
       id,
       title,

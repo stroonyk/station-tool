@@ -97,44 +97,44 @@ export const formatDate = (date) => {
   });
 };
 
-interface TemplateTile {
-  title: string;
-  subtext1: string;
-  iconClass: string;
-  id: number;
-}
+// interface TemplateTile {
+//   title: string;
+//   subtext1: string;
+//   iconClass: string;
+//   id: number;
+// }
 
-export const getTemplates = async (current: number): Promise<TemplateTile[]> => {
-  const { template: popularTemplates, pages } = await getStation()
-    .templates()
-    .mostPopular()
-    .index({ page: current, size: 12 });
+// export const getTemplates = async (current: number): Promise<TemplateTile[]> => {
+//   const { template: popularTemplates, pages } = await getStation()
+//     .templates()
+//     .mostPopular()
+//     .index({ page: current, size: 12 });
 
-  const templateTiles: TemplateTile[] = popularTemplates.map((template) => ({
-    title: template.title,
-    // subtext1: `Updated at: ${new Date(template.updated_at).toLocaleDateString()}`,
-    updated_at: template.updated_at,
-    // iconClass: 'fas fa-file-word',
-    description: template.description,
-    file_type: template.file_type,
-    id: template.id,
-  }));
+//   const templateTiles: TemplateTile[] = popularTemplates.map((template) => ({
+//     title: template.title,
+//     // subtext1: `Updated at: ${new Date(template.updated_at).toLocaleDateString()}`,
+//     updated_at: template.updated_at,
+//     // iconClass: 'fas fa-file-word',
+//     description: template.description,
+//     file_type: template.file_type,
+//     id: template.id,
+//   }));
 
-  return templateTiles;
-};
+//   return templateTiles;
+// };
 
-export const getArticles = async (page: number): Promise<IArticle[]> => {
-  const articles = await getStation()
-    .articles()
-    .index({
-      no_link_tracking: true,
-      '!state': 'deleted',
-      page: page,
-      size: 25,
-      sort: [{ key: 'updated_at', order: 'DESC' }],
-    });
-  return articles.article;
-};
+// export const getArticles = async (page: number): Promise<IArticle[]> => {
+//   const articles = await getStation()
+//     .articles()
+//     .index({
+//       no_link_tracking: true,
+//       '!state': 'deleted',
+//       page: page,
+//       size: 25,
+//       sort: [{ key: 'updated_at', order: 'DESC' }],
+//     });
+//   return articles.article;
+// };
 
 export const isFavourite = (list: any[], id: number): boolean => {
   return list.some((item) => item.id === id);
@@ -153,13 +153,11 @@ export const isFavourite = (list: any[], id: number): boolean => {
 //   return articles.article;
 // };
 
-export const getSectors = async (id:number): Promise<IArticle[]> => {
-  const sectors = await getStation().sectors().articles().index(id);
-  const sectorList = sectors.article.map(({ id, title, excerpt, updated_at }) => ({ id, title, excerpt, updated_at }));
-  // stationCtx.setArticles(sectorList, id, ARTICLES_TYPE.CATEGORY);
-  // setLoading(false);
-  return sectorList;
-};
+// export const getSectors = async (id:number): Promise<IArticle[]> => {
+//   const sectors = await getStation().sectors().articles().index(id);
+//   const sectorList = sectors.article.map(({ id, title, excerpt, updated_at }) => ({ id, title, excerpt, updated_at }));
+//   return sectorList;
+// };
 
 // export const favouriteClicked = async (articleId: number, list: []) => {
 //   // event.preventDefault();

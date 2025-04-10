@@ -1,82 +1,73 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FavouriteButton from './FavouriteButton'; // Adjust the import path if necessary
-import { formatDate } from '../../helpers/helpers'; // Adjust the import path if necessary
+import { downloadTemplate, formatDate, fileTypeIcons } from '../../helpers/helpers'; // Adjust the import path if necessary
 import { getDynamicValueById } from '../../helpers/helpers';
 import { motion } from 'framer-motion';
 import { cardVariants } from '../../utils/animations';
 import { useStationContext } from '../../store/station-context';
 
 interface CardComponentProps {
-  item: any; // Define a more specific type if necessary (e.g., Article, Guide, etc.)
-  // selected: string;
-  // browseByItems: any[]; // Define the appropriate type for the browseByItems array
+  item: any;
+  isTemplate?: boolean;
   favourite?: boolean;
-  path: string;
+  path?: string;
+  templateId?: number;
 }
 
-const CardComponent: React.FC<CardComponentProps> = ({ item, favourite, path }) => {
+const CardComponent: React.FC<CardComponentProps> = ({ templateId, isTemplate, item, favourite, path }) => {
   const { basePath } = useStationContext();
+  const contents = (
+    <div className="tile-contents">
+      <div className="tile-header">
+        {item.image_url && <img src={item.image_url} alt={`Image for ${item.title}`} />}
+        <div className={`title ${item.image_url ? 'url' : ''}`}>
+          <h3>{item.title}</h3>
+        </div>
+      </div>
+
+      <div
+        className="subtext my-s"
+        dangerouslySetInnerHTML={{
+          __html: item.brief ?? item.description ?? item.summary ?? item.excerpt ?? '',
+        }}
+      />
+
+      <div className="subtext fs--s mt-auto">
+        {formatDate(new Date(item.updated_at))}
+        {item.file_type && (
+          <span className="list-icon">
+            <i className={`fas ${fileTypeIcons[item.file_type] || 'fa-file'}`}></i>
+          </span>
+        )}
+        {favourite && (
+          <div className="button-group article-actions">
+            <FavouriteButton id={item.id} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <>
-      {/* <motion.div
-        // className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
-        initial="hidden"
-        animate="visible"
-        variants={cardVariants}
-        exit="exiting"
-        key={item.id}
-      > */}
-      <Link
-        // to={`${basePath}/${getDynamicValueById(browseByItems, selected, 'url')}/${item.id}`}
-        to={`${basePath}/${path}/${item.id}`}
-        key={`sectors${item.id}`}
-        className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
-      >
-        <div className="tile-contents">
-          {/* <div className="tile-header">
-            {item.image_url && <img src={item.image_url} alt={`Image for ${item.title}`} />}
-            <div className="title">
-              <h3>{item.title}</h3>
-            </div>
-          </div> */}
-          {item.image_url ? (
-            <>
-              <div className="tile-header">
-                <img src={item.image_url} alt={`Image for ${item.title}`} />
-                <div className="title">
-                  <h3>{item.title}</h3>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <h3>{item.title}</h3>
-            </>
-          )}
-          <div
-            className="subtext my-s"
-            dangerouslySetInnerHTML={{
-              __html: item.brief ?? item.description ?? item.summary ?? item.excerpt,
-            }}
-          />
-          <div className="subtext fs--s mt-auto">
-            {formatDate(new Date(item.updated_at))}
-
-            {favourite && (
-              <div className="button-group article-actions">
-                <FavouriteButton id={item.id} />
-              </div>
-            )}
-            {/* {(selected === 'article' || selected === 'favourite') && (
-              <div className="button-group article-actions">
-                <FavouriteButton id={item.id} />
-              </div>
-            )} */}
-          </div>
-        </div>
-      </Link>
-      {/* </motion.div> */}
+      {isTemplate ? (
+        <a
+          key={item.id}
+          className="tile tile--350 tile--link-title-underline tile--white article flex-column"
+          onClick={() => downloadTemplate(templateId)}
+        >
+          {contents}
+        </a>
+      ) : (
+        <Link
+          to={`${basePath}/${path}/${item.id}`}
+          key={item.id}
+          className="tile tile--350 tile--link-title-underline tile--white article flex-column"
+        >
+          {contents}
+        </Link>
+      )}
     </>
   );
 };

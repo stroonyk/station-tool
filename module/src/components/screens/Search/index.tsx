@@ -8,14 +8,18 @@ import SkeletonLoader from '../../common/SkeletonLoader';
 import SearchItem from './SearchItem';
 import { downloadTemplate, fileTypeIcons, formatDate } from '../../../helpers/helpers';
 import { GuideIcon, ArticleIcon, TemplateIcon } from '../../../icons';
+import CardComponent from '../../common/CardComponent';
 
 const FILTERS = {
   ARTICLE: 'article',
   TEMPLATE: 'article_template',
   SEQUENCE: 'sequence',
 };
+interface ISearchProps {
+  refresh: boolean;
+}
 
-const Search: React.FC = ({ refresh }) => {
+const Search = ({ refresh }: ISearchProps) => {
   // const { id } = useParams();
   // usePageReset(id);
   const navigate = useNavigate();
@@ -99,23 +103,12 @@ const Search: React.FC = ({ refresh }) => {
                 </div>
                 <div className="container tile-list template">
                   {templateList.map((item, index) => (
-                    <a
-                      key={`template${index}`}
-                      className="tile tile--350 tile--link-title-underline tile--white article flex-column"
-                      onClick={() => downloadTemplate(item.id.match(/\d+$/)?.[0])}
-                    >
-                      <div className="tile-contents">
-                        <h2>{item.title}</h2>
-
-                        <div className="subtext my-s">{item.description}</div>
-                        <div className="subtext fs--s mt-auto">
-                          {formatDate(new Date(item.updated_at))}
-                          <span className="list-icon">
-                            <i className={`fas ${fileTypeIcons[item.file_type] || 'fa-file'}`}></i>
-                          </span>
-                        </div>
-                      </div>
-                    </a>
+                    <CardComponent
+                      isTemplate={true}
+                      key={item.id}
+                      item={item}
+                      templateId={item.id.match(/\d+$/)?.[0]}
+                    />
                   ))}
                 </div>
               </>

@@ -20,11 +20,15 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      max-width: calc(
-        100% - 140px
-      ); // Ensures the title takes up the remaining space but doesn't overflow
+      // max-width: calc(
+      //   100% - 140px
+      // ); // Ensures the title takes up the remaining space but doesn't overflow
       white-space: normal; // Allows the title to wrap if needed
       padding-right: 10px;
+
+      & .url {
+        max-width: calc(100% - 140px);
+      }
     }
   }
 

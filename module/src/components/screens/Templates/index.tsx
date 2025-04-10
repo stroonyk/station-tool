@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { downloadTemplate, getTemplates } from '../../../helpers/helpers';
-import { formatDate, fileTypeIcons } from '../../../helpers/helpers';
+import { getTemplates } from '../../../services/station';
 import { useNavigate } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
 import usePageReset from '../../../hooks/usePageReset';
-import Header from './Header';
+import Header from './Components/Header';
+import CardComponent from '../../common/CardComponent';
+import { useStationContext } from '../../../store/station-context';
 
 export interface ITemplateProps {
   refresh: boolean;
 }
 const Templates: React.FC<ITemplateProps> = ({ refresh }) => {
   const { id } = useParams();
+  const { stationSDK } = useStationContext();
   usePageReset(id);
   const navigate = useNavigate();
   const [templates, setTemplates] = useState([]);
@@ -20,7 +22,7 @@ const Templates: React.FC<ITemplateProps> = ({ refresh }) => {
   useEffect(() => {
     setLoading(true);
     const fetchList = async () => {
-      const list = await getTemplates(1);
+      const list = await getTemplates(stationSDK, 1);
       setTemplates(list);
       setLoading(false);
     };
@@ -40,26 +42,7 @@ const Templates: React.FC<ITemplateProps> = ({ refresh }) => {
           <SkeletonLoader />
         ) : templates && templates.length > 0 ? (
           templates.map((item) => (
-            <a
-              key={item.id}
-              className="tile tile--350 tile--link-title-underline tile--white article flex-column"
-              onClick={() => downloadTemplate(item.id)}
-            >
-              <div className="tile-contents">
-                <div className="tile-header">
-                  <div className="title">
-                    <h2>{item.title}</h2>
-                  </div>
-                </div>
-                <div className="subtext my-s">{item.description}</div>
-                <div className="subtext fs--s mt-auto">
-                  {formatDate(new Date(item.updated_at))}
-                  <span className="list-icon">
-                    <i className={`fas ${fileTypeIcons[item.file_type] || 'fa-file'}`}></i>
-                  </span>
-                </div>
-              </div>
-            </a>
+            <CardComponent isTemplate={true} key={item.id} item={item} favourite={false} templateId={item.id} />
           ))
         ) : (
           <div>No Templates Available</div>

@@ -20,7 +20,7 @@ interface IMainContentLayout {
   /**
    * React Children
    */
-  children: React.ReactNode;
+  // children: React.ReactNode;
   /**
    * If set, will set the main background colour
    */
@@ -47,7 +47,7 @@ const searchFunction = async (searchTerm: string): Promise<{ id: string; title: 
 //   return formattedSuggestions;
 // };
 
-const MainContentLayout: FC<IMainContentLayout> = ({ children, background = 'white' }) => {
+const MainContentLayout: FC<IMainContentLayout> = ({ background = 'white' }) => {
   const { basePath } = useStationContext();
   return (
     <div className="main-content-layout">

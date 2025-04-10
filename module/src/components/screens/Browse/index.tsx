@@ -1,19 +1,15 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useStationContext } from '../../../store/station-context';
-// import getStation from '../../../utils/getStation';
-import { ARTICLES_TYPE } from '../../../store/stationReducer';
 import { useNavigate } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
-import Breadcrumbs from '../../common/Breadcrumbs/Breadcrumbs';
-import TitleContainer from '../../common/TitleContainer';
-import { getArticles, getDynamicValueById, getTemplates } from '../../../helpers/helpers';
+import { getDynamicValueById } from '../../../helpers/helpers';
+import { getArticles, getTemplates } from '../../../services/station';
 import EaseInWrapper from '../../common/Animation/EaseInWrapper';
 import usePageReset from '../../../hooks/usePageReset';
-import { browseByItems } from './config'; // Adjust the import path if necessary
-
 import Header from './Components/Header';
 import CardComponent from '../../common/CardComponent';
+import { browseByItems } from './Components/config';
 
 export interface IBrowseProps {
   refresh: boolean;
@@ -21,16 +17,14 @@ export interface IBrowseProps {
 
 const Browse = ({ refresh }: IBrowseProps) => {
   const stationCtx = useStationContext();
+  const { stationSDK } = useStationContext();
   const { id } = useParams();
   usePageReset(id);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [list, setList] = useState([]);
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState<string>();
   const [loading, setLoading] = useState(true);
-  // const byParam = useMemo(() => searchParams.get('by'), [searchParams]);
-  // const loadMoreRef = useRef(null);
-
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -40,7 +34,7 @@ const Browse = ({ refresh }: IBrowseProps) => {
   const loadMore = () => {
     const fetchArticles = async () => {
       setLoading(true);
-      const returnList = await getArticles(page + 1);
+      const returnList = await getArticles(stationSDK, page + 1);
       setList((prevList) => [...prevList, ...returnList]);
       setLoading(false);
     };
@@ -61,14 +55,14 @@ const Browse = ({ refresh }: IBrowseProps) => {
           setList(stationCtx.savedSectors);
           break;
         case 'article':
-          list = await getArticles(page);
+          list = await getArticles(stationSDK, page);
           setList(list);
           break;
         case 'guide':
           setList(stationCtx.savedGuides);
           break;
         case 'template':
-          list = await getTemplates(1);
+          list = await getTemplates(stationSDK, 1);
           setList(list);
           break;
       }
@@ -79,14 +73,14 @@ const Browse = ({ refresh }: IBrowseProps) => {
   }, [selected, stationCtx.savedCategories, stationCtx.savedSectors, stationCtx.savedGuides]);
 
   useEffect(() => {
-    const fetchTemplates = async () => {
+    const setFavourites = async () => {
       switch (selected) {
         case 'favourite':
           setList(stationCtx.savedFavourites);
           break;
       }
     };
-    fetchTemplates();
+    setFavourites();
   }, [selected, stationCtx.savedFavourites]);
 
   useEffect(() => {
@@ -105,16 +99,14 @@ const Browse = ({ refresh }: IBrowseProps) => {
           loadMore();
         }
       };
-
       window.addEventListener('scroll', handleScroll);
-
-      // Cleanup on component unmount
       return () => {
         window.removeEventListener('scroll', handleScroll);
       };
     }
   }, [selected, loading]);
-  const sortList = (listToSort, sortBy, sortDirection) => {
+
+  const sortList = (listToSort: any[], sortBy: string, sortDirection: string) => {
     return listToSort.sort((a, b) => {
       let valA = a[sortBy];
       let valB = b[sortBy];
@@ -131,7 +123,7 @@ const Browse = ({ refresh }: IBrowseProps) => {
     });
   };
 
-  const sortClicked = (sortBy, sortDirection) => {
+  const sortClicked = (sortBy: string, sortDirection: string) => {
     const sortedList = sortList([...list], sortBy, sortDirection);
     setList(sortedList);
   };
@@ -139,12 +131,7 @@ const Browse = ({ refresh }: IBrowseProps) => {
   return (
     <>
       <EaseInWrapper>
-        <Header
-          selected={selected}
-          description={getDynamicValueById(browseByItems, selected, 'description')}
-          items={browseByItems}
-          sortClicked={sortClicked}
-        />
+        <Header selected={selected} sortClicked={sortClicked} />
 
         <div className="container tile-list">
           {loading ? (
@@ -153,6 +140,8 @@ const Browse = ({ refresh }: IBrowseProps) => {
             list.length > 0 &&
             list.map((item, index) => (
               <CardComponent
+                isTemplate={selected === 'template'}
+                templateId={item.id}
                 key={item.id}
                 item={item}
                 path={getDynamicValueById(browseByItems, selected, 'url')}

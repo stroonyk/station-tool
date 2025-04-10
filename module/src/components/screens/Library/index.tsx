@@ -1,14 +1,8 @@
 import { Link, useParams } from 'react-router-dom';
 import { useStationContext } from '../../../store/station-context';
 import { useEffect, useState } from 'react';
-// import MainContentLayout from '../../layouts/MainContentLayout';
-// import readingTime from 'reading-time';
-
 import { useMediaQuery } from 'react-responsive';
-import getStation from '../../../utils/getStation';
-// import CustomDropdown from '../../common/CustomDropdown';
 import { useNavigate } from 'react-router-dom';
-// import Filters from '../../common/Filters';
 import Breadcrumb from '../../common/Breadcrumbs/Breadcrumbs';
 import GuideList from '../../common/GuideList';
 import JurisdictionList from '../../common/JurisdictionList';
@@ -23,10 +17,13 @@ import { formatDate } from '../../../helpers/helpers';
 import FavouriteButton from '../../common/FavouriteButton';
 import { ACTION_TYPE } from '../../../store/stationReducer';
 
-const Library = ({ refresh }) => {
+interface ILibraryProps {
+  refresh: boolean;
+}
+const Library = ({ refresh }: ILibraryProps) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const { dispatch, swipeDirection, selectedGuide } = useStationContext();
+  const { stationSDK, dispatch, swipeDirection, selectedGuide } = useStationContext();
   const { id } = useParams();
   const isSmallerScreen = useMediaQuery({
     query: '(min-width: 1200px)',
@@ -38,7 +35,7 @@ const Library = ({ refresh }) => {
   let fadeInFromLeft = false;
 
   const hydrateArticle = async (): Promise<void> => {
-    const articles = await getStation().articles().get(parseInt(id), { with_meta: true });
+    const articles = await stationSDK.articles().get(parseInt(id), { with_meta: true });
     setArticle(articles);
     // debugger;
     // stationCtx.setSelectedArticle(parseInt(id));
@@ -59,7 +56,7 @@ const Library = ({ refresh }) => {
     // setReadingTimeText(`Approximately ${duration} minute${duration === 1 ? '' : 's'}`);
   };
   const hydrateTemplate = async (): Promise<void> => {
-    const templates = await getStation().articles().templates().index(parseInt(id));
+    const templates = await stationSDK.articles().templates().index(parseInt(id));
     // stationCtx.setTemplates(templates.template);
     dispatch({ type: ACTION_TYPE.SET_TEMPLATES, payload: templates.template });
   };

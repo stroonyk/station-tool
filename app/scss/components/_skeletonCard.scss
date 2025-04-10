@@ -1,0 +1,57 @@
+.skeleton-card {
+  min-width: 31%;
+  min-height: 350px;
+  background-color: white;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #f7f7f7;
+}
+.skeleton-card:not(:nth-child(3n + 3)) {
+  margin-right: 3.5%;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.skeleton-header {
+  width: 80%;
+  height: 20px;
+  margin: 10px auto;
+  background-color: #ddd;
+  border-radius: 4px;
+}
+
+.skeleton-body {
+  width: 80%;
+  margin: 10px auto;
+}
+
+.skeleton-line {
+  position: relative;
+  width: 100%;
+  height: 15px;
+  background-color: #ddd;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  overflow: hidden; // Keeps shimmer effect inside each line
+}
+
+.skeleton-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  animation: shimmer 1.5s infinite linear;
+}
+.skeleton-container {
+  width: 100%;
+  display: flex;
+}

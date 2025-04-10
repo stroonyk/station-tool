@@ -1,0 +1,24 @@
+.article-actions {
+  .favourited {
+    color: $status-amber !important;
+  }
+
+  .button {
+    padding: 0;
+    margin-right: 2rem;
+    font-size: 28px;
+    color: #aaaaaa;
+    background: none;
+    border: none;
+    outline: none;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.disabled {
+      color: #555555;
+    }
+  }
+}

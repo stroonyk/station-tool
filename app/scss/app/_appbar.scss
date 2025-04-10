@@ -1,0 +1,77 @@
+.app-bar {
+  .switch-app {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    z-index: 1000;
+  }
+
+  .motion-button {
+    position: fixed;
+    top: 10px;
+    width: 28px; // Smaller button size
+    height: 28px; // Smaller button size
+    background-color: #f7f7f7; // Subtle blue
+    color: black;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1100;
+    display: flex;
+    justify-content: center;
+    align-items: center; // Center the content inside the button
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #e1e1e1; // Darker blue on hover
+    }
+
+    &:active {
+      background-color: #f7f7f7; // Even darker blue on click
+    }
+
+    input[type='checkbox'] {
+      transform: scale(0.8); // Slightly shrink the checkbox for better fit
+    }
+  }
+
+  .show-menu {
+    @extend .motion-button;
+    left: 10px;
+  }
+
+  .show-v2 {
+    @extend .motion-button;
+    left: 45px; // Closer spacing between buttons
+  }
+
+  .nav-item {
+    text-decoration: none;
+    color: #333;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+
+    &.selected {
+      background-color: #cc0100;
+      color: #fff;
+    }
+
+    .underline {
+      border-bottom: 1px solid black;
+    }
+  }
+}

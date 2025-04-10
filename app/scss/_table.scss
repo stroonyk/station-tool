@@ -1,0 +1,126 @@
+@mixin branded-table-1 {
+  width: 100%;
+  border-collapse: collapse;
+
+  &,
+  tr,
+  td,
+  th {
+    border: 0;
+  }
+
+  th {
+    padding: .8rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $rradar-white;
+    text-align: left;
+    background: $rradar-black;
+  }
+
+  thead {
+    border-bottom: 2rem solid $rradar-white;
+  }
+
+  tr:nth-child(odd) {
+    background: $rradar-pearl;
+  }
+
+  tr:nth-child(even) {
+    background: $rradar-white;
+  }
+
+  thead + tbody tr:first-of-type {
+    font-weight: inherit;
+  }
+
+  td,
+  th {
+    padding-right: .8rem;
+    padding-left: .8rem;
+  }
+
+  td {
+    padding-top: 1.4rem;
+    padding-bottom: 1.4rem;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: none;
+
+    &:visited {
+      color: #000000;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@mixin branded-table-2 {
+  // Branding guideline tables
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  tr {
+    &.disabled {
+      pointer-events: none;
+      cursor: default;
+      opacity: .5;
+      user-select: none;
+    }
+  }
+
+  th,
+  td {
+    &.hidden {
+      display: none;
+    }
+  }
+
+  td {
+    &.has-dropdown {
+      position: relative;
+    }
+  }
+
+  &-label {
+    display: block;
+    cursor: pointer;
+  }
+
+  &-dropdown {
+    display: none;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    z-index: 100;
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #DBDBDB;
+
+    &.is-visible {
+      display: block;
+    }
+
+    &-item {
+      display: block;
+      padding: .8rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: RGBA(100, 100, 100, .1);
+      }
+    }
+  }
+}
+
+.admin-table th.centred-cell {
+  text-align: center;
+}

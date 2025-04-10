@@ -1,21 +1,25 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { useStationContext } from '../../../store/station-context';
-import getStation from '../../../utils/getStation';
+// import getStation from '../../../utils/getStation';
 import { ARTICLES_TYPE } from '../../../store/stationReducer';
 import { useNavigate } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
 import Breadcrumbs from '../../common/Breadcrumbs/Breadcrumbs';
 import TitleContainer from '../../common/TitleContainer';
-import { getArticles, getTemplates } from '../../../helpers/helpers';
+import { getArticles, getDynamicValueById, getTemplates } from '../../../helpers/helpers';
 import EaseInWrapper from '../../common/Animation/EaseInWrapper';
 import usePageReset from '../../../hooks/usePageReset';
 import { browseByItems } from './config'; // Adjust the import path if necessary
 
-import Header from './Header';
+import Header from './Components/Header';
 import CardComponent from '../../common/CardComponent';
 
-const Browse = ({ refresh }) => {
+export interface IBrowseProps {
+  refresh: boolean;
+}
+
+const Browse = ({ refresh }: IBrowseProps) => {
   const stationCtx = useStationContext();
   const { id } = useParams();
   usePageReset(id);
@@ -131,10 +135,16 @@ const Browse = ({ refresh }) => {
     const sortedList = sortList([...list], sortBy, sortDirection);
     setList(sortedList);
   };
+
   return (
     <>
       <EaseInWrapper>
-        <Header selected={selected} items={browseByItems} sortClicked={sortClicked} />
+        <Header
+          selected={selected}
+          description={getDynamicValueById(browseByItems, selected, 'description')}
+          items={browseByItems}
+          sortClicked={sortClicked}
+        />
 
         <div className="container tile-list">
           {loading ? (
@@ -145,8 +155,7 @@ const Browse = ({ refresh }) => {
               <CardComponent
                 key={item.id}
                 item={item}
-                selected={selected}
-                browseByItems={browseByItems}
+                path={getDynamicValueById(browseByItems, selected, 'url')}
                 favourite={selected === 'article' || selected === 'favourite'}
               />
             ))

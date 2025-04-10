@@ -91,6 +91,7 @@ app.use((req, res, next) => {
         'https://rradar-accounts.imgix.net',
         'https://i0.wp.com',
         'data:',
+        'https://rradar-arcmedia.s3-eu-west-1.amazonaws.com/',
       ],
       'script-src': [
         `'nonce-${res.locals.wpsNonce}'`,
@@ -172,7 +173,7 @@ app.get('/livez', (req, res) => res.status(200).json({ status: 'ok' }));
 // });
 
 app.get('*', (req, res) => {
- res.render('index');
+  res.render('index');
 });
 // app.get('*', (req, res) => {
 //   res.status(404);

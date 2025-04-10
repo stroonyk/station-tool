@@ -1,0 +1,32 @@
+.landing-page-download-tiles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  // justify-content: space-around;
+  padding: 2em 0;
+
+  .download-tile {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    width: 25em;
+    background: #ffffff;
+    padding: 2rem 2rem;
+    box-shadow: 0 0 5px #aaa;
+    transition: 0.4s;
+    margin: 1em 0.5em;
+
+    h3 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-weight: 300;
+      padding-bottom: 1rem;
+      color: #333 !important;
+    }
+
+    p {
+      color: #656565;
+    }
+  }
+}

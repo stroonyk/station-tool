@@ -1,6 +1,6 @@
-.dashboard-card-dashboard {
+.dashboard-card {
   padding: 1rem;
-  min-height: 200px;
+  min-height: 376px;
   background-color: white;
   border: 1px solid $colour-border-light;
   box-shadow: 0 25px 15px -25px $rradar-box-shadow;
@@ -73,7 +73,7 @@
   }
 }
 
-.dashboard-cards-dashboard {
+.dashboard-cards {
   display: grid;
   width: 100%;
   margin: 1em 0;
@@ -84,7 +84,7 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 425px));
   }
   @media (min-width: 1300px) {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 28%));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 500px));
   }
   @media (min-width: 1330px) {
     grid-gap: 3rem;

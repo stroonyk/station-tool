@@ -19,4 +19,4 @@ export const ArticleIcon: React.FC = () => (
   </svg>
 );
 
-export default ArticleIcon;
+// export default ArticleIcon;

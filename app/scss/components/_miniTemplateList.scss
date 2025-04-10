@@ -1,0 +1,54 @@
+.mini-template-container {
+  width: 250px; /* Adjust the width of the dropdown */
+  position: relative; /* Ensure the dropdown is contained within this parent */
+  background-color: white;
+  margin-left: 20px;
+}
+
+.mini-template-header {
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.mini-template-header:hover {
+  background-color: #f7f7f7;
+}
+
+.mini-template-dropdown {
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 5px;
+  background-color: #fff;
+  max-height: 200px; /* Max height to make it scrollable if needed */
+  overflow-y: auto;
+  position: absolute; /* Dropdown positioned under the header */
+  top: 100%; /* Places it below the header */
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.mini-template-div {
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.mini-template-div:hover {
+  background-color: #f7f7f7;
+}
+
+.mini-template-title {
+  font-size: 12px;
+  color: #333;
+}
+
+.dropdown-arrow {
+  /* Optional styling for the dropdown arrow */
+}

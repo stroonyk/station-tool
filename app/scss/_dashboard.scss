@@ -1,0 +1,22 @@
+.newtile {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.newtile:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.3), 0 0 12px rgba(255, 215, 0, 0.2);
+}
+
+.tile--250 {
+  min-height: 250px;
+}
+
+.NavigationBar__navigation-bar-container--Zhy2x ul li a {
+  // color: rgb(204, 1, 0);
+  color: black;
+}
+
+.NavigationBar__navigation-bar-container--Zhy2x ul {
+  justify-content: left;
+}

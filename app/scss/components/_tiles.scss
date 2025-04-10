@@ -1,0 +1,51 @@
+.tile-contents {
+  display: flex;
+  flex-direction: column; // Stack everything vertically
+  height: 100%;
+  padding: 2rem 1rem 2rem 2rem;
+  // gap: 1.5rem; // Adds space between image and text sections
+
+  .tile-header {
+    display: flex;
+    align-items: flex-start; // Aligns the image and title to the top
+    gap: 0.8rem; // Space between the image and title
+
+    img {
+      width: 120px;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      max-width: calc(
+        100% - 140px
+      ); // Ensures the title takes up the remaining space but doesn't overflow
+      white-space: normal; // Allows the title to wrap if needed
+      padding-right: 10px;
+    }
+  }
+
+  .subtext {
+    font-size: 1rem;
+    color: #666;
+
+    &.my-s {
+      margin-bottom: 1rem;
+    }
+
+    &.fs--s {
+      font-size: 0.8rem;
+    }
+
+    &.mt-auto {
+      margin-top: auto; // Pushes the date to the bottom of the container
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}

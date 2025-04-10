@@ -1,13 +1,14 @@
 import React from 'react';
 import { getDescriptionById } from '../../helpers/helpers';
+import { useStationContext } from '../../store/station-context';
 
 interface TitleContainerProps {
-  categories: { id: number; title: string }[];
   id: number;
 }
 
-const DescriptionContainer: React.FC<TitleContainerProps> = ({ categories, id }) => {
-  const title = getDescriptionById(categories, id);
+const DescriptionContainer: React.FC<TitleContainerProps> = ({ id }) => {
+  const { savedCategories } = useStationContext();
+  const title = getDescriptionById(savedCategories, id);
 
   return (
     <div style={{ marginBottom: '20px', marginTop: '0px' }} className="container">

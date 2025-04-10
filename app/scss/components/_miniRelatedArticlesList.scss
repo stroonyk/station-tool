@@ -1,0 +1,58 @@
+// .mini-related-container {
+//   width: 250px; /* Adjust the width of the dropdown */
+//   position: relative; /* Ensure the dropdown is contained within this parent */
+//   padding-left: 20px;
+//   margin-top: 20px;
+// }
+// .mini-related {
+//   // display: block;
+//   font-size: 13px;
+//   font-weight: normal;
+// }
+// .mini-related-title {
+//   display: block;
+//   font-size: 14px;
+//   font-weight: bold;
+//   color: #878787;
+// }
+
+.mini-related-container {
+  padding-left: 20px;
+  margin-top: 20px;
+
+  .mini-related-title {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #878787;
+    margin-bottom: 10px;
+  }
+
+  .mini-related-cards {
+    display: grid;
+    grid-template-columns: repeat(
+      2,
+      110px
+    ); // Two columns with fixed card width of 150px
+    gap: 10px; // Spacing between cards
+  }
+
+  .mini-related-card {
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    // text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease-in-out;
+    min-height: 100px; // Ensures the card is taller than it is wide
+    font-size: 12px; // Smaller text
+  }
+
+  .mini-related-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}

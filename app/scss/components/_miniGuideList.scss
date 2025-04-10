@@ -1,0 +1,51 @@
+.mini-guide-list-container {
+  display: flex; /* Arrange items in a row */
+  gap: 10px; /* Space between the boxes */
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
+  // margin-top: 20px;
+}
+
+.mini-guide-list-card {
+  width: 120px; /* Small width for the cards */
+  height: 30px; /* Height for the cards */
+  display: flex;
+  /* justify-content: center; Center the text */
+  align-items: center; /* Center the text */
+  border: 1px solid #ccc; /* Default border */
+  background-color: white;
+  /*border-radius: 5px;  Rounded corners */
+  padding: 5px;
+  text-align: center;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+  font-size: 12px; /* Small font size */
+  //   transition: border 0.3s ease-in-out; /* Smooth border change */
+}
+.mini-guide-list-card:hover {
+  text-decoration: none;
+  background-color: #f7f7f7;
+}
+.article-title {
+  color: #333;
+}
+.selected {
+  background-color: #f7f7f7;
+}
+.selected .article-title {
+  color: #cc0000; /* Bold border for the selected article */
+}
+
+// .fade {
+//   opacity: 1; /* Start fully visible */
+//   transform: translateX(0); /* Start at its normal position */
+//   transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transition */
+// }
+// .fade-right-move {
+//   transform: translateX(100px); /* Move slightly to the right */
+//   opacity: 0; /* Fade out */
+// }
+// .fade-left-move {
+//   transform: translateX(-100px); /* Move slightly to the right */
+//   opacity: 0; /* Fade out */
+// }

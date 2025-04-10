@@ -1,3 +1,82 @@
+@mixin mq($breakpoint: false, $type: min, $prop: width) {
+  @media only screen and (#{$type}-#{$prop}: #{$breakpoint}px) {
+    @content;
+  }
+}
+@mixin generate-grid {
+  &--top {
+    align-items: flex-start;
+  }
+  &--center {
+    align-items: center;
+  }
+  &--bottom {
+    align-items: flex-end;
+  }
+  &--nowrap {
+    flex-wrap: nowrap;
+  }
+}
+@mixin generate-columns {
+  @for $column from 1 through 12 {
+    &-#{$column} {
+      width: #{calc(calc(100% / 12) * #{$column})};
+    }
+  }
+
+  &--first {
+    order: -12;
+  }
+
+  &--second {
+    order: -11;
+  }
+
+  &--third {
+    order: -10;
+  }
+
+  &--fourth {
+    order: -9;
+  }
+
+  &--fifth {
+    order: -8;
+  }
+
+  &--sixth {
+    order: -7;
+  }
+
+  &--sixth-last {
+    order: 7;
+  }
+
+  &--fifth-last {
+    order: 8;
+  }
+
+  &--fourth-last {
+    order: 9;
+  }
+
+  &--third-last {
+    order: 10;
+  }
+
+  &--second-last {
+    order: 11;
+  }
+
+  &--last {
+    order: 12;
+  }
+}
+@mixin reset-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
 @keyframes border-dance {
   0% {
     background-position-x: 0, 100%, 0, 100%;

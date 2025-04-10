@@ -1,0 +1,49 @@
+.services-tile {
+  // div:not(.appstore-container) {
+  //   &:hover {
+  //     button {
+  //       background: $brand-red-mid-fade !important;
+  //       border-color: $brand-red-mid-fade !important;
+  //       color: $brand-red-mid;
+  //       cursor: pointer;
+  //     }
+  //   }
+  // }
+
+  img {
+    margin: 1rem 0;
+    width: 100%;
+  }
+
+  &--contents {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    height: 100%;
+
+    img {
+      &:before {
+        &:hover {
+          box-shadow: 0px 2px 0px 0px #cc0000;
+        }
+      }
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 1em;
+    }
+
+    p {
+      text-align: center;
+    }
+  }
+
+  .appstore-container {
+    margin-top: auto;
+
+    .appstore-logo {
+      padding: 0;
+    }
+  }
+}

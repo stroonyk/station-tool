@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import CustomDropdown from './CustomDropdown';
 import { useStationContext } from '../../store/station-context';
 import { useLocation } from 'react-router-dom';
-import AppConfig from '../../helpers/AppConfig';
 
 export interface IFilterProps {
   selectedCategory?: number;
@@ -11,11 +10,10 @@ export interface IFilterProps {
 }
 
 const Filters: React.FC<IFilterProps> = () => {
-  const { savedCategories, savedGuides, savedSectors, basePath } = useStationContext();
-  const appConfig = AppConfig.getInstance();
+  const { config, savedCategories, savedGuides, savedSectors, basePath } = useStationContext();
   const location = useLocation();
 
-  if (appConfig.getConfig().classic) {
+  if (config.classic) {
     return null;
   }
 
@@ -26,7 +24,6 @@ const Filters: React.FC<IFilterProps> = () => {
     { name: 'Sectors', path: 'sectors', items: savedSectors },
     { name: 'Templates', path: 'templates', isLink: true },
   ];
-  // debugger;
   return (
     <div className="container station-menu-bar">
       <div style={{ display: 'flex', gap: '10px' }}>

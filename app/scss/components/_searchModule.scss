@@ -1,0 +1,109 @@
+// @use '@styles/variables';
+// @use '@styles/mixins';
+
+.search--light {
+  left: 50%;
+  position: fixed;
+  top: 10px;
+  transform: translateX(-50%);
+  // width: fit-content;
+  z-index: 3;
+
+  // position: relative;
+  width: 30vw;
+  justify-content: space-around;
+  padding: 0.6rem 1rem;
+  // border-radius: 50px;
+  box-sizing: border-box !important;
+  border: 0;
+  outline: none;
+  font-weight: 400;
+  border: 1px solid #ccc;
+
+  &.open {
+    border-radius: 24px;
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+  }
+  &:focus {
+    border-color: #cc0000;
+  }
+  background: #f7f7f7;
+  color: black;
+
+  img,
+  i {
+    height: 18px;
+    color: black;
+    cursor: pointer;
+  }
+
+  input {
+    position: relative;
+    display: block;
+    background: none;
+    border: none;
+    // /height: 2em;
+    width: 90%;
+    outline: none;
+    font-size: 1em;
+    color: black;
+  }
+
+  .seach-options {
+    width: 100%;
+    position: absolute;
+    top: 43px;
+    z-index: 10;
+    background: white;
+    max-height: 500px;
+    overflow-y: auto;
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+    // @include mixins.scrollbar(7px);
+    div.subtitle {
+      padding-left: 10px;
+      font-weight: 300;
+    }
+    ul {
+      list-style: none;
+      z-index: 11;
+    }
+    ul.results-list {
+      li {
+        cursor: pointer;
+        font-weight: 400;
+        transition: 0.1s;
+        z-index: 12;
+        padding: 6px 2px;
+        display: flex;
+
+        &.hover,
+        &.selected {
+          background-color: #f7f7f7;
+          color: black;
+        }
+        .result {
+          padding-left: 13px;
+        }
+        .visited {
+          font-size: 14px;
+          opacity: 0.6;
+        }
+        i {
+          line-height: unset !important;
+        }
+      }
+    }
+  }
+}
+
+// .search--light {
+//   @include search(variables.$grey-light, variables.$grey-dark);
+// }
+
+// .search--dark {
+//   @include search(variables.$grey-dark, variables.$grey-light);
+// }

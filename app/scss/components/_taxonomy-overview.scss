@@ -1,0 +1,150 @@
+[data-component='taxonomy-overview'] {
+  display: flex;
+  flex-direction: column;
+  // padding: 1em 0 3em;
+
+  & > div {
+    [class^='headline-'] {
+      margin-bottom: 3.2rem;
+    }
+  }
+
+  .taxonomy-select--container {
+    position: relative;
+
+    h2 {
+      div {
+        margin-left: 10px;
+        cursor: pointer;
+      }
+      .tax-selected {
+        color: $brand-red-mid;
+      }
+      .tax-unselected {
+        opacity: 0.75;
+      }
+      // strong {
+      //   display: inline-flex;
+      //   flex-flow: row nowrap;
+      //   padding: 0.9rem;
+      //   background-color: #f5f5f5;
+      //   border: 1px solid;
+      //   border-color: #fcfcfc;
+      //   border-radius: 3px;
+      // }
+    }
+  }
+
+  .taxonomy-select--dropdown {
+    position: absolute;
+    top: 100%;
+    z-index: 99;
+    width: 100%;
+    background-color: $rradar-white;
+  }
+
+  .taxonomy-select {
+    display: inline-block;
+    width: 32px;
+    margin-top: 0;
+    margin-left: 1rem;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: top;
+    background-color: #e2e2e2;
+    border: 1px solid #dedede;
+    border-radius: 3px;
+
+    &:hover {
+      color: #ffffff;
+      cursor: pointer;
+      background-color: #666;
+      border-color: #7f7f7f;
+    }
+  }
+
+  .categories {
+    order: 1;
+  }
+  .sectors {
+    @include mq(1280) {
+      margin-top: 6.4rem;
+      margin-bottom: 6.4rem;
+    }
+    margin-top: 3.2rem;
+    margin-bottom: 3.2rem;
+    order: 2;
+  }
+  .countries {
+    order: 3;
+  }
+}
+
+.taxonomy-overview {
+  &-display {
+    display: flex;
+    flex-flow: row wrap;
+  }
+  &--pane {
+    flex: 1;
+    flex-grow: 0;
+    position: relative;
+    height: 400px;
+    min-width: 100%;
+    margin: 0 1% 1% 0;
+    overflow: hidden;
+    cursor: pointer;
+    background-size: cover;
+
+    @include mq(640) {
+      min-width: 100%;
+    }
+
+    @include mq(768) {
+      min-width: 47.6%;
+    }
+
+    @include mq(1024) {
+      min-width: 47.6%;
+    }
+
+    @include mq(1280) {
+      min-width: 31.6%;
+    }
+
+    @include mq(1476) {
+      min-width: 23.8%;
+    }
+  }
+
+  &--info-wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    color: #ffffff;
+    background-color: rgba(25, 25, 25, 0.8);
+    box-sizing: border-box;
+    transition: bottom 0.2s ease-in-out;
+
+    a:link {
+      z-index: 1;
+    }
+
+    .info-text {
+      height: 100%;
+      overflow: hidden;
+      opacity: 1;
+
+      a:link,
+      a:visited {
+        color: $rradar-white;
+      }
+    }
+  }
+}

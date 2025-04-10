@@ -1,0 +1,214 @@
+$masthead-max-height-small: 25rem;
+$masthead-min-height: 27vh;
+$masthead-padding-bottom: 4rem;
+
+.masthead {
+  // @include background-gradient;
+  @include mq(768) {
+    min-height: $masthead-min-height;
+    // padding-top: 12rem;
+  }
+  @include mq(1024) {
+    // padding-top: 8rem;
+  }
+  display: table;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  max-height: $masthead-max-height-small;
+  padding: 4rem 0;
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: #333 !important;
+  }
+
+  &-subcontent {
+    a {
+      margin-right: 1rem;
+      font-style: italic;
+    }
+  }
+
+  &-coronavirus-wrapper,
+  &-leftalign-wrapper {
+    display: flex;
+    align-items: center;
+    height: auto;
+    max-height: 100%;
+    z-index: 1;
+  }
+
+  &-inner {
+    display: table-cell;
+    position: relative;
+    // z-index: 2;
+    text-align: center;
+    vertical-align: middle;
+
+    &-coronavirus,
+    &-leftalign {
+      // @include mq(1280) {
+      //   padding: 0 8.6rem !important;
+      // }
+      // @include mq(1024) {
+      //   padding: 0 3.6rem !important;
+      // }
+
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      // padding: 0 1.6rem;
+      text-align: left !important;
+
+      .search {
+        margin-left: 0 !important;
+      }
+
+      > div {
+        padding: 0 !important;
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+      }
+    }
+
+    > div {
+      max-width: 99.2rem;
+      padding: 0 4.4rem;
+      margin-right: auto;
+      margin-left: auto;
+      background: transparent;
+      border: 0;
+      box-sizing: border-box;
+    }
+  }
+
+  &-content-coronavirus,
+  &-content-leftalign {
+    @include mq(1024) {
+      max-width: 60% !important;
+    }
+    max-width: 100% !important;
+  }
+
+  &-title {
+    // @include mq(768) {
+    //   font-size: 2.4rem;
+    // }
+    // @include mq(1024) {
+    //   font-size: 4.5rem;
+    // }
+    // @include mq(1280) {
+    //   font-size: 3.8rem;
+    // }
+    margin-bottom: 2rem;
+    font-size: 3.8rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: $headline-letter-spacing;
+    color: #333;
+  }
+
+  &-sub-title {
+    font-size: 2.8rem;
+  }
+
+  &-subtitle {
+    @include mq(768) {
+      font-size: 2.4rem;
+    }
+    font-size: 2rem;
+    font-weight: 100;
+  }
+
+  &-coronavirus {
+    @include mq(1024) {
+      width: 40%;
+      padding: 4rem;
+      margin-top: 0;
+    }
+    color: #333;
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    margin-top: 2rem;
+
+    h2 {
+      font-weight: 100 !important;
+      color: $rradar-white;
+    }
+
+    a {
+      font-weight: 400;
+      text-align: right;
+    }
+  }
+
+  // p {
+  //   color: $rradar-white;
+  // }
+
+  &-logo {
+    max-width: 100%;
+    + p {
+      margin-top: 4rem;
+    }
+    &-spacing {
+      margin: 0 1.7em;
+    }
+  }
+
+  a {
+    color: $rradar-white;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .button-group {
+    @include mq(568) {
+      max-width: initial;
+    }
+    display: flex;
+    justify-content: center;
+    max-width: 20rem;
+    padding: 0;
+    margin-top: 4rem;
+    margin-right: auto;
+    margin-left: auto;
+    list-style: none;
+
+    .button {
+      & ~ .button {
+        @include mq(567, max) {
+          margin-top: 2rem;
+        }
+        @include mq(568) {
+          margin-top: 0;
+          margin-left: 2rem;
+        }
+      }
+    }
+  }
+
+  // Temporary because AXA logo has transparency for AXA text
+  .risk-managers-logo {
+    background: #ffffff;
+  }
+
+  &-subcontent-first {
+    font-weight: 600;
+  }
+}
+
+.masthead-dual-logos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

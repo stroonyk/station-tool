@@ -1,23 +1,19 @@
-import { useEffect, useState } from 'react';
-// import AppConfig from '../../../../helpers/AppConfig';
-import CustomDropdown from '../../common/CustomDropdown';
-import { getDynamicValueById } from '../../../helpers/helpers';
-import SortBy from '../../common/SortBy';
-import { useStationContext } from '../../../store/station-context';
+import CustomDropdown from '../../../common/CustomDropdown';
+import { getDynamicValueById } from '../../../../helpers/helpers';
+import SortBy from '../../../common/SortBy';
+import { useStationContext } from '../../../../store/station-context';
 
 export interface IHeaderProps {
   selected: string;
+  description: string;
   items: [];
-  sortClicked?: (sortBy: string) => void;
+  sortClicked?: (sortBy: string, direction: string) => void;
 }
 
-const Header: React.FC<IHeaderProps> = ({ selected, items, sortClicked }) => {
-  // console.log('Header selected is ' + selected);
-  // debugger;
+const Header: React.FC = ({ selected, items, description, sortClicked }: IHeaderProps) => {
   const { basePath } = useStationContext();
   const sortClickedHandler = (sortBy: string, direction: string) => {
-    // alert('sort by' + sortBy);
-    sortClicked?.(sortBy, direction); // Call the parent component's sortClicked function with the selected sort option.
+    sortClicked?.(sortBy, direction);
   };
   return (
     <>
@@ -42,7 +38,7 @@ const Header: React.FC<IHeaderProps> = ({ selected, items, sortClicked }) => {
             </div>
           </div>
         </div>
-        <p>{getDynamicValueById(items, selected, 'description')}</p>
+        <p>{description}</p>
       </div>
     </>
   );

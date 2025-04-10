@@ -1,0 +1,218 @@
+.circular--close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  color: white;
+  background: black;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 100%;
+  z-index: 2;
+  right: -0.75rem;
+  top: -0.5rem;
+
+  &:hover {
+    background: $rradar-charcoal;
+    cursor: pointer;
+  }
+}
+
+@mixin newbutton($bgColour, $textColour, $bgHoverColour, $textHoverColour) {
+  //height: 3.5em;
+  margin: 18px 0;
+  padding: 10px 27px;
+  font-weight: 500;
+  font-family: $heading-font;
+  text-decoration: none;
+  transition: all 0.1s ease-in-out;
+  background-color: $bgColour;
+  border: none;
+  border-radius: 5px;
+  color: $textColour !important;
+  font-size: 18px;
+  font-weight: 600;
+  display: inline-block;
+  svg,
+  span {
+    color: $textColour !important;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: $bgHoverColour;
+    color: $textHoverColour !important;
+    text-decoration: underline;
+
+    svg,
+    span {
+      color: $textHoverColour !important;
+    }
+  }
+
+  &:disabled {
+    pointer-events: none;
+    cursor: default !important;
+    opacity: 0.5;
+  }
+}
+
+// Temporary fix for rebuilder!!!
+.primary-button,
+.grey-button {
+  @include newbutton(
+    $brand-red-mid,
+    white,
+    $brand-red-mid-fade,
+    $brand-red-mid
+  );
+}
+
+.secondary-button {
+  @include newbutton(
+    $brand-red-mid-fade,
+    $brand-red-mid,
+    $brand-red-mid,
+    white
+  );
+}
+
+.cancel-button {
+  @include newbutton(white, $brand-red-mid, $brand-red-mid, white);
+}
+
+// Temporary fix for rebuilder
+.block-red-button,
+.red-button,
+.brand-button {
+  @include newbutton($brand-red, white, $brand-red-fade, $brand-red);
+}
+
+.faded-red-button {
+  @include newbutton($brand-red-fade, $brand-red, $brand-red, white);
+}
+
+.button-centered {
+  display: block;
+  margin: 2rem auto;
+}
+
+.dark-button-hollow {
+  padding: 1rem 4rem;
+  font-weight: 300;
+  color: $rradar-black;
+  text-transform: none;
+  background-color: transparent;
+  border: 1px solid $rradar-black;
+  border-radius: 0;
+  outline: none;
+
+  &:hover {
+    color: $rradar-white;
+    background-color: $rradar-red;
+    border-color: $rradar-red;
+  }
+}
+
+.standard-button {
+  &:hover {
+    color: #333333;
+  }
+}
+
+.masthead .masthead-button,
+.masthead-button {
+  color: #ffffff;
+  background-color: #3e3e3e;
+  border: 1px solid #272727;
+}
+
+.green-button {
+  color: #016101;
+}
+
+.red-button {
+  color: $rradar-white;
+  background-color: $colour-brand-primary;
+}
+
+.fluid-button {
+  width: 100%;
+}
+
+.actor-button--add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-right: 1rem;
+  color: $rradar-white;
+  cursor: pointer;
+  background: #dfdfdf;
+  border: 0;
+  border-radius: 5px;
+}
+
+.actor-search-button {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 30px;
+  height: 30px;
+  color: white;
+  background-color: #cc0000;
+  border: none;
+  border-radius: 5px;
+}
+
+.button-group {
+  display: flex;
+  flex-flow: row nowrap;
+  list-style: none;
+  align-items: center;
+
+  .button {
+    border-radius: 0;
+
+    &:hover {
+      background-color: #f7f7f7;
+    }
+  }
+
+  .icon-button {
+    border-radius: 0;
+    border: none;
+    background: none;
+    color: #878787;
+    padding: 0;
+    margin-right: 2rem;
+    font-size: 28px;
+    outline: none;
+
+    &:hover {
+      color: $brand-red-mid;
+      cursor: pointer;
+    }
+  }
+
+  & > li {
+    & ~ li {
+      margin-left: -1px;
+    }
+
+    &:first-of-type {
+      & > .button {
+        border-bottom-left-radius: 0.5em;
+        border-top-left-radius: 0.5em;
+      }
+    }
+
+    &:last-of-type {
+      & > .button {
+        border-top-right-radius: 0.5em;
+        border-bottom-right-radius: 0.5em;
+      }
+    }
+  }
+}

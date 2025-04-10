@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from '../store/stationReducer';
+import { ACTION_TYPE, ARTICLES_TYPE } from '../store/stationReducer';
 
 // hooks/useHydrators.ts
 export const useHydrators = (state, dispatch, config) => {
@@ -16,6 +16,21 @@ export const useHydrators = (state, dispatch, config) => {
       }),
     );
     dispatch({ type: ACTION_TYPE.SET_CATEGORIES, payload: categoryList });
+  };
+  const hydrateCategoriesPage = async (id: number) => {
+    dispatch({
+      type: ACTION_TYPE.SET_LOADING,
+      payload: true,
+    });
+    const articles = await config.station.categories().articles().index(id);
+    dispatch({
+      type: ACTION_TYPE.SET_ARTICLES,
+      payload: {
+        articles: articles.article,
+        id: id,
+        articlesType: ARTICLES_TYPE.CATEGORY,
+      },
+    });
   };
 
   const hydrateFavourites = async () => {
@@ -62,5 +77,6 @@ export const useHydrators = (state, dispatch, config) => {
     { data: state.savedFavourites, hydrate: hydrateFavourites },
   ];
 
-  return { hydrators, hydrateFavourites };
+  // return { hydrators, hydrateFavourites };
+  return { hydrators, hydrateFavourites, hydrateCategoriesPage };
 };

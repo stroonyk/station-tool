@@ -15,6 +15,7 @@ export enum ACTION_TYPE {
   SET_SELECTED_GUIDE = 'SET_SELECTED_GUIDE',
   SET_SELECTED_SECTOR = 'SET_SELECTED_SECTOR',
   SET_SWIPE_DIRECTION = 'SET_SWIPE_DIRECTION',
+  SET_LOADING = 'SET_LOADING',
 }
 export enum ARTICLES_TYPE {
   CATEGORY = 'CATEGORY',
@@ -36,6 +37,7 @@ export const stationInitialState = {
   selectedGuide: 0,
   selectedSector: 0,
   swipeDirection: 'left' as 'left' | 'right',
+  loading: false,
 };
 export type UserState = {
   config: IEditorConfig | null;
@@ -53,10 +55,14 @@ export type UserState = {
   selectedSector: number;
   savedTemplates: any[];
   swipeDirection: 'left' | 'right';
+  setLoading: boolean;
 };
 export interface IArticlesType {
   articles: [];
   id: number;
+  summary:string;
+  title:string;
+  reviewed_at:string;
   articleType: ARTICLES_TYPE;
 }
 export type UserAction =
@@ -72,7 +78,8 @@ export type UserAction =
   | { type: ACTION_TYPE.SET_FAVOURITES; payload: [] }
   | { type: ACTION_TYPE.SET_SWIPE_DIRECTION; payload: 'left' | 'right' }
   | { type: ACTION_TYPE.GO_HOME; payload: boolean }
-  | { type: ACTION_TYPE.SET_ARTICLES; payload: IArticlesType };
+  | { type: ACTION_TYPE.SET_ARTICLES; payload: IArticlesType }
+  | { type: ACTION_TYPE.SET_LOADING; payload: boolean };
 
 const stationReducer = (state: UserState, action: UserAction) => {
   switch (action.type) {
@@ -162,6 +169,14 @@ const stationReducer = (state: UserState, action: UserAction) => {
         savedSectors,
       };
     }
+    case ACTION_TYPE.SET_LOADING: {
+      const loading = action.payload;
+
+      return {
+        ...state,
+        loading,
+      };
+    }
     case ACTION_TYPE.SET_ARTICLES: {
       const articles = action.payload.articles;
       const id = action.payload.id;
@@ -169,6 +184,7 @@ const stationReducer = (state: UserState, action: UserAction) => {
       return {
         ...state,
         savedArticles: { articles, id, articleType },
+       loading: false,
       };
     }
     default:

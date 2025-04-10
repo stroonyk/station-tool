@@ -9,12 +9,13 @@ import { useStationContext } from '../../store/station-context';
 
 interface CardComponentProps {
   item: any; // Define a more specific type if necessary (e.g., Article, Guide, etc.)
-  selected: string;
-  browseByItems: any[]; // Define the appropriate type for the browseByItems array
-  favourite: boolean;
+  // selected: string;
+  // browseByItems: any[]; // Define the appropriate type for the browseByItems array
+  favourite?: boolean;
+  path: string;
 }
 
-const CardComponent: React.FC<CardComponentProps> = ({ item, selected, browseByItems, favourite }) => {
+const CardComponent: React.FC<CardComponentProps> = ({ item, favourite, path }) => {
   const { basePath } = useStationContext();
   return (
     <>
@@ -27,7 +28,8 @@ const CardComponent: React.FC<CardComponentProps> = ({ item, selected, browseByI
         key={item.id}
       > */}
       <Link
-        to={`${basePath}/${getDynamicValueById(browseByItems, selected, 'url')}/${item.id}`}
+        // to={`${basePath}/${getDynamicValueById(browseByItems, selected, 'url')}/${item.id}`}
+        to={`${basePath}/${path}/${item.id}`}
         key={`sectors${item.id}`}
         className={'tile tile--350 tile--link-title-underline tile--white article flex-column'}
       >

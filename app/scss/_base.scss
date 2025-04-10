@@ -23,3 +23,40 @@ body {
 span.answered {
   margin: auto;
 }
+footer,
+header {
+  position: sticky !important;
+  top: 0 !important;
+  right: 0;
+  left: 0;
+  z-index: 2 !important;
+  width: 100%;
+  height: 109px;
+  color: #333;
+  background: #fff;
+}
+#root {
+  height: auto !important;
+  min-height: 100%; /* Keeps full height but allows content to extend */
+}
+
+// .main-content-layout {
+//   min-height: unset;
+//   height: auto;
+//   // height: 100vh;
+//   background-color: #f7f7f7;
+//   // border-top: border-top: 1px solid #ccc;
+//   border-top: 1px solid #ccc;
+//   padding-top: 12px;
+// }
+.main-content-layout {
+  background-color: #f7f7f7;
+  border-top: 1px solid #ccc;
+  min-height: 100vh;
+  padding-top: 12px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.template .list-icon i {
+  font-size: 20px;
+}

@@ -5,6 +5,7 @@ import { stationInitialState } from './stationReducer';
 const StationContext = React.createContext({
   ...stationInitialState,
   hydrateFavourites: () => {},
+  hydrateCategoriesPage: (id) => {},
 });
 
 export default StationContext;

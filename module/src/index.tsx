@@ -1,21 +1,13 @@
 import * as React from 'react';
 import './styles/index.scss';
 import './icons';
+import AppConfig from './helpers/AppConfig';
 import { IStationProps } from './types';
 import StationProvider from './store/StationProvider';
 import { Routes, Route, BrowserRouter, Link } from 'react-router-dom';
 import { Home, Library, Category, Guide, Templates, Sectors, Tags, Browse, Search } from './components/screens';
-import AppConfig from './helpers/AppConfig';
-// import { IPublicState } from '.';
-// import { MobileMenu, SiteFooter, SiteHeader, SiteLoader } from '@rradar/core';
-// import { getSessionToken } from '@rradar/utilities';
-// import getAccounts from './utils/getAccounts';
-// import getDashboard from './utils/getDashboard';
 import { useStationContext } from './store/station-context';
-// import CustomDropdown from './components/common/CustomDropdown';
-// import Filters from './components/common/Filters';
 import MainContentLayout from './components/layouts/MainContentLayout';
-// import AppDisclaimer from './components/screens/Library/components/disclaimer';
 
 const Cookies = require('js-cookie');
 
@@ -26,8 +18,6 @@ export interface IAppProps {
 const App = ({ refresh }) => {
   const { basePath } = useStationContext();
   if (basePath === null) return;
-  // const basePath = config.hybrid_monoserver ? '/station' : '';
-  // debugger;
   return (
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
@@ -87,13 +77,9 @@ const StationReader = (props: IStationProps) => {
   props.config.page.title = `Welcome to your online knowledge library`;
   const appConfig = AppConfig.getInstance();
   appConfig.setConfig(props.config);
-  // console.log('props are baby ' + props.refresh);
-  // debugger;
-  // const stationCtx = useStationContext();
   return (
     <>
       <StationProvider config={props.config}>
-        {/* <App refresh={props.refresh} hybrid_monoserver={props.config.hybrid_monoserver} /> */}
         <App refresh={props.refresh} />
       </StationProvider>
     </>

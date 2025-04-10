@@ -1,0 +1,200 @@
+button {
+  font-family: $heading-font;
+  font-weight: 500;
+  font-size: 18px;
+  border: none;
+}
+
+// .actions {
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+//   .action-buttons {
+//     display: flex;
+//     flex-direction: row;
+//     margin-left: auto;
+//     list-style-type: none;
+
+//     button {
+//       &:not(:last-of-type) {
+//         margin-right: 10px;
+//       }
+//     }
+//   }
+// }
+
+.styleButtonGroup {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  li {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+
+    &:not(:last-of-type) {
+      margin-left: auto;
+      margin-right: 10px;
+    }
+  }
+}
+
+.button-split {
+  padding: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  color: #fff;
+  background-color: $brand-red-mid;
+  border-color: $brand-red-mid;
+
+  &--right {
+    padding: 13px 18px 13px 12px;
+    transition: border-color 0.2s ease-in-out;
+
+    i {
+      transform: rotateZ(45deg);
+    }
+  }
+
+  &--left {
+    padding: 13px 12px 13px 18px;
+  }
+
+  &:hover {
+    background: $brand-red-mid-fade !important;
+    border-color: $brand-red-mid-fade !important;
+    color: $brand-red-mid;
+    cursor: pointer;
+
+    i {
+      color: $brand-red-mid;
+    }
+  }
+}
+
+.button-group-singular {
+  padding: 0;
+  margin: 0;
+  margin-top: 20px;
+  list-style-type: none;
+}
+
+.ask-an-advisor {
+  display: none;
+
+  @include breakpoint(laptop) {
+    display: inline-block;
+  }
+}
+
+.text-button {
+  padding: 0;
+  border: 0;
+  color: #717171;
+
+  &:not(:disabled):hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #333333;
+  }
+
+  &:disabled:hover {
+    color: #717171;
+  }
+}
+
+.panel-buttons {
+  display: flex;
+  margin-top: 10px;
+
+  @include breakpoint(tablet) {
+    margin-top: 0;
+  }
+
+  .panel-button:not(:last-of-type) {
+    margin-right: 10px;
+  }
+}
+
+.panel-button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 500;
+  background-color: #717171;
+  color: #ffffff;
+
+  .custom-cube-icon {
+    position: relative;
+
+    .fa-plus {
+      position: absolute;
+      right: -10px;
+      font-size: 10px;
+    }
+  }
+
+  &:not(:disabled):hover {
+    cursor: pointer;
+    background-color: #676767;
+    text-decoration: none;
+  }
+
+  &:disabled:hover {
+    color: #ffffff;
+  }
+
+  span {
+    margin: 0 8px;
+  }
+
+  svg {
+    margin-left: 10px;
+    color: #ffffff;
+  }
+}
+
+.grey-button {
+  @include button($brand-red-mid-fade, $brand-red-mid, $brand-red-mid, white);
+}
+
+// Rename and keep this class
+.button-toggle {
+  margin-bottom: 20px;
+
+  .button {
+    @include button($brand-red-mid-fade, $brand-red-mid, $brand-red-mid, white);
+    &--active {
+      @include button(
+        $brand-red-mid,
+        white,
+        $brand-red-mid-fade,
+        $brand-red-mid
+      );
+    }
+  }
+  button {
+    border-radius: 0 !important;
+
+    &:first-of-type {
+      border-radius: 5px 0 0 5px !important;
+    }
+    &:last-of-type {
+      border-radius: 0 5px 5px 0 !important;
+    }
+  }
+}
+
+// .button--small {
+//   padding: 0.25rem 0.5rem;
+//   border-radius: 0.25rem;
+//   margin: 2px;
+// }

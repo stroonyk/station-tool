@@ -3,13 +3,13 @@ import StationContext from './station-context';
 import stationReducer, { stationInitialState, ACTION_TYPE, UserState, UserAction } from './stationReducer';
 import { useHydrators } from '../hooks/useHydrators';
 
-
 const StationProvider = ({ children, config }: any) => {
   const [state, dispatch] = useReducer<React.Reducer<UserState, UserAction>>(stationReducer, {
     ...stationInitialState,
     config,
   });
-  const { hydrators, hydrateFavourites } = useHydrators(state, dispatch, config);
+  // const { hydrators, hydrateFavourites, hydrateCategoriesPage } = useHydrators(state, dispatch, config);
+  const { hydrators, hydrateFavourites, hydrateCategoriesPage } = useHydrators(state, dispatch, config);
 
   useEffect(() => {
     dispatch({ type: ACTION_TYPE.INITIALISE });
@@ -22,6 +22,7 @@ const StationProvider = ({ children, config }: any) => {
     ...state,
     dispatch,
     hydrateFavourites,
+    hydrateCategoriesPage,
   };
 
   return <StationContext.Provider value={stationContext}>{children}</StationContext.Provider>;

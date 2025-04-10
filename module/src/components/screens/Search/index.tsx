@@ -7,9 +7,7 @@ import { searchFunction } from '../../../utils/searchService';
 import SkeletonLoader from '../../common/SkeletonLoader';
 import SearchItem from './SearchItem';
 import { downloadTemplate, fileTypeIcons, formatDate } from '../../../helpers/helpers';
-import { GuideIcon } from '../../../guideicon';
-import { ArticleIcon } from '../../../articleicon';
-import { TemplateIcon } from '../../../templateicon';
+import { GuideIcon, ArticleIcon, TemplateIcon } from '../../../icons';
 
 const FILTERS = {
   ARTICLE: 'article',
@@ -100,9 +98,9 @@ const Search: React.FC = ({ refresh }) => {
                   </h3>
                 </div>
                 <div className="container tile-list template">
-                  {templateList.map((item) => (
+                  {templateList.map((item, index) => (
                     <a
-                      key={item.id}
+                      key={`template${index}`}
                       className="tile tile--350 tile--link-title-underline tile--white article flex-column"
                       onClick={() => downloadTemplate(item.id.match(/\d+$/)?.[0])}
                     >
@@ -134,13 +132,14 @@ const Search: React.FC = ({ refresh }) => {
                   </h3>
                 </div>
                 <div className="container tile-list guides">
-                  {sequenceList.map((item) => (
+                  {sequenceList.map((item, index) => (
                     <SearchItem
                       path={'guides'}
                       blurb={item.excerpt}
                       id={item.id}
                       updated_at={item.updated_at}
                       title={item.title}
+                      key={`guides${index}`}
                     />
                   ))}
                 </div>
@@ -159,7 +158,7 @@ const Search: React.FC = ({ refresh }) => {
                   </h3>
                 </div>
                 <div className="container tile-list">
-                  {articleList.map((item) => (
+                  {articleList.map((item, index) => (
                     <SearchItem
                       path={'library'}
                       blurb={item.excerpt}
@@ -167,6 +166,7 @@ const Search: React.FC = ({ refresh }) => {
                       id={item.id}
                       updated_at={item.updated_at}
                       title={item.title}
+                      key={`search${index}`}
                     />
                   ))}
                 </div>

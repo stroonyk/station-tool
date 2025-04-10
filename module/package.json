@@ -16,7 +16,8 @@
     "build": "webpack --mode production --config scripts/webpack.config.js",
     "build:watch": "webpack --mode development --watch --config scripts/webpack.config.js ",
     "clean": "rm -rf ./dist",
-    "check:types": "tsc --project tsconfig.json --noEmit"
+    "check:types": "tsc --project tsconfig.json --noEmit",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",

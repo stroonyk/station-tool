@@ -1,0 +1,106 @@
+$grid-gutter: 8.6rem;
+$grid-gutter-med: 3.6rem;
+$grid-gutter-small: 1.6rem;
+
+.container {
+  /* Position relative to allow for correct positioning of loading spinner */
+  position: relative;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 $grid-gutter-small !important;
+
+  @include mq(1024) {
+    padding: 0 $grid-gutter-med !important;
+  }
+  @include mq(1280) {
+    padding: 0 $grid-gutter !important;
+  }
+  /* Position relative to allow for correct positioning of loading spinner */
+  position: relative;
+  width: 100% !important;
+  padding: 0 $grid-gutter-small !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  box-sizing: border-box;
+}
+
+.container-dark {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+  color: white;
+  background: #2a2a2a;
+}
+
+.row {
+  @include generate-grid;
+  @each $breakpoint in (568, 640, 768, 1024, 1280) {
+    &-#{$breakpoint} {
+      @include mq($breakpoint) {
+        @include generate-grid;
+      }
+    }
+  }
+  display: flex;
+  flex-flow: row wrap;
+
+  &--guttered {
+    margin-right: -$grid-gutter;
+    margin-left: -$grid-gutter;
+    & > [class^='column-'] {
+      padding-right: $grid-gutter;
+      padding-left: $grid-gutter;
+    }
+  }
+
+  &--guttered-small {
+    justify-content: space-between;
+    margin-right: -$grid-gutter-small;
+    margin-left: -$grid-gutter-small;
+    & > [class^='column-'] {
+      padding-right: $grid-gutter-small;
+      padding-left: $grid-gutter-small;
+    }
+  }
+}
+
+[class^='column-'] {
+  box-sizing: border-box;
+}
+
+.column {
+  @include generate-columns;
+  @each $breakpoint in (568, 640, 768, 1024, 1280) {
+    &-#{$breakpoint} {
+      @include mq($breakpoint) {
+        @include generate-columns;
+      }
+    }
+  }
+}
+
+.row.ck-widget {
+  border: 1px dotted rgba(225, 225, 225, 0.95);
+}
+
+.ck.ck .ck-column {
+  padding: 1rem;
+  border-right: 1px dotted rgba(225, 225, 225, 0.95);
+  box-sizing: border-box;
+
+  &:last-of-type {
+    border-right: 0;
+  }
+}
+
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-blurred.ck-read-only.ck-editor__editable_inline {
+  background-color: #eaeaea;
+  color: #8d8d8d;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.mr-auto {
+  margin-right: auto !important;
+}

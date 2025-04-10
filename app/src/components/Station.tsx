@@ -15,6 +15,7 @@ const Station = () => {
           user: appstate.user,
           pageid: getPageId(),
           station: getStation(),
+          classic: false,
           navigatedHome: navigatedHomeHandler,
           hybrid_monoserver: false,
         }}

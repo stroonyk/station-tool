@@ -27,8 +27,6 @@
     "@rradar/accounts-sdk": "^10.3.2",
     "@rradar/dashboard-sdk": "^1.12.0",
     "@rradar/eslint-config": "^1.0.2",
-    "@rradar/lister": "^5.2.4",
-    "@rradar/listings-table": "^2.2.14",
     "@rradar/station-api-module": "^1.9.8",
     "@rradar/station-sdk": "file:../../station-sdk",
     "braces": "^3.0.3",
@@ -100,7 +98,6 @@
     "webpack-strip-block": "^0.3.0"
   },
   "peerDependencies": {
-    "@rradar/core": "^2.1.25",
     "@rradar/fontawesome": "^1.0.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"

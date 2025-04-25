@@ -3,7 +3,6 @@ import getStation from './getStation';
 import { ISearchResponse } from '@rradar/station-sdk';
 // import { getState } from './getState';
 import { FILTERS } from './constants';
-// import { IResultsList, IResultsListFull } from '@rradar/core/Search';
 const getState = (): IPublicState => window.__PUBLIC_STATE__ || ({} as IPublicState);
 
 export interface IResultsListFull {

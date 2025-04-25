@@ -5,7 +5,7 @@ import { ACTION_TYPE, ARTICLES_TYPE } from '../../../store/stationReducer';
 import { useNavigate } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
 import TitleContainer from '../../common/TitleContainer';
-import { getSectors } from '../../../services/station';
+import { getSectorArticles } from '../../../services/station';
 import DescriptionContainer from '../../common/DescriptionContainer';
 import EaseInWrapper from '../../common/Animation/EaseInWrapper';
 import usePageReset from '../../../hooks/usePageReset';
@@ -32,7 +32,7 @@ const Sectors = ({ refresh }: ISectorsProps) => {
     const fetchList = async () => {
       if (!savedArticles.articles || savedArticles.id !== idInt) {
         setLoading(true);
-        const list = await getSectors(stationSDK, idInt);
+        const list = await getSectorArticles(stationSDK, idInt);
         dispatch({
           type: ACTION_TYPE.SET_ARTICLES,
           payload: { articles: list, id: id, articlesType: ARTICLES_TYPE.CATEGORY },

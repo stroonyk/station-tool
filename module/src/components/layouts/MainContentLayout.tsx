@@ -1,4 +1,4 @@
-// import { ErrorBoundary, ErrorPage } from '@rradar/core';
+
 import { FC, useEffect } from 'react';
 import Filters from '../common/Filters';
 import { Outlet } from 'react-router-dom';

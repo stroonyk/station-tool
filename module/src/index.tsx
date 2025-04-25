@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './styles/index.scss';
+// import './styles/index.scss';
 import './icons';
 import AppConfig from './helpers/AppConfig';
 import { IStationProps } from './types';

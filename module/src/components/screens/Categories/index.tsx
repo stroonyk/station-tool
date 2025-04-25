@@ -41,7 +41,7 @@ const CategoryPage = ({ refresh }: ICategoryProps) => {
             <SkeletonLoader />
           ) : savedArticles.articles && savedArticles.id === idInt ? (
             savedArticles.articles.map((item: IArticlesType) => (
-              <CardComponent key={item.id} item={item} path={'library'} />
+              <CardComponent key={item.id} item={item} path={'library'} favourite={true} />
             ))
           ) : (
             <div>No Articles Found</div>

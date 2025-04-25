@@ -1,10 +1,10 @@
 // Some ordering matters i.e core needs loading first, then local variables before anything else
 // nodeModule scss/css imports
 // @import './partials/fontawesome';
-@import './partials/core';
+// @import './partials/core';
 // Base classes and helpers
-@import 'variables', 'mixins', 'base';
+ @import 'variables', 'mixins', 'base';
 // Components root
 
 // nodeModule overrides
-@import 'modules/alertify';
+// @import 'modules/alertify';

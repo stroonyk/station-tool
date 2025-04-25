@@ -3,7 +3,7 @@ import Search from '../../Search';
 
 // import Search from '../../common/Search';
 
-import parser from 'html-react-parser';
+// import parser from 'html-react-parser';
 import { getState } from '../../../helpers/helpers';
 import customMastheads from '../customMastheads';
 import { getSearchSuggestions } from '../../../utils/searchService';
@@ -74,7 +74,7 @@ export default function MastheadStandard(props: IMastheadStandardProps): JSX.Ele
               width={props.imageWidth ? props.imageWidth : '100%'}
             />
           )}
-          {props.title ? <h1 className="masthead-title">{parser(props.title)}</h1> : <></>}
+          {props.title ? <h1 className="masthead-title">{props.title}</h1> : <></>}
           <Search
             searchTerm={props.searchTerm}
             isOpen={props.isOpen}
